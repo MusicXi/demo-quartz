@@ -20,21 +20,6 @@
         </property>  
     </bean>  
   
-  
-    <!-- 数据源定义,使用c3p0 连接池 -->  
-<!--     <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"  
-        destroy-method="close">  
-        <property name="driverClass" value="${jdbc.driverClassName}" />  
-        <property name="jdbcUrl" value="${jdbc.url}" />  
-        <property name="user" value="${jdbc.username}" />  
-        <property name="password" value="${jdbc.password}" />  
-        <property name="initialPoolSize" value="${cpool.minPoolSize}" />  
-        <property name="minPoolSize" value="${cpool.minPoolSize}" />  
-        <property name="maxPoolSize" value="${cpool.maxPoolSize}" />  
-        <property name="acquireIncrement" value="${cpool.acquireIncrement}" />  
-        <property name="maxIdleTime" value="${cpool.maxIdleTime}" /> 
-    </bean>   -->
-    
     <!-- 数据源配置,不使用连接池 jdbc dataSource-->
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">         
 		<property name="driverClassName" value="${jdbc.driverClassName}"/>        
