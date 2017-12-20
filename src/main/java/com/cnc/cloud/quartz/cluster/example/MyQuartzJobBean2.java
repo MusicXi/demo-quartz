@@ -1,14 +1,16 @@
-package com.sundoctor.quartz.cluster.example;  
+package com.cnc.cloud.quartz.cluster.example;  
   
-import org.quartz.DisallowConcurrentExecution;  
-import org.quartz.JobExecutionContext;  
-import org.quartz.JobExecutionException;  
-import org.quartz.PersistJobDataAfterExecution;  
-import org.quartz.SchedulerException;  
-import org.slf4j.Logger;  
-import org.slf4j.LoggerFactory;  
-import org.springframework.context.ApplicationContext;  
-import org.springframework.scheduling.quartz.QuartzJobBean;  
+import org.quartz.DisallowConcurrentExecution;
+import org.quartz.JobExecutionContext;
+import org.quartz.JobExecutionException;
+import org.quartz.PersistJobDataAfterExecution;
+import org.quartz.SchedulerException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.context.ApplicationContext;
+import org.springframework.scheduling.quartz.QuartzJobBean;
+
+import com.cnc.cloud.service.SimpleService;
   
 @PersistJobDataAfterExecution  
 @DisallowConcurrentExecution// 不允许并发执行  

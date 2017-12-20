@@ -1,4 +1,4 @@
-package com.sundoctor.quartz.cluster.example;  
+package com.cnc.cloud.service;  
   
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

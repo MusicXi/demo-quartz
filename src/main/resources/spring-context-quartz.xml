@@ -21,7 +21,7 @@
 	<bean id="jobDetail1"
 		class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
 		<property name="jobClass">
-			<value>com.sundoctor.quartz.cluster.example.MyQuartzJobBean1</value>
+			<value>com.cnc.cloud.quartz.cluster.example.MyQuartzJobBean1</value>
 		</property>
 		<property name="durability" value="true" />
 		<property name="requestsRecovery" value="true" />
@@ -35,7 +35,7 @@
 	<bean id="jobDetail2"
 		class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
 		<property name="jobClass">
-			<value>com.sundoctor.quartz.cluster.example.MyQuartzJobBean2</value>
+			<value>com.cnc.cloud.quartz.cluster.example.MyQuartzJobBean2</value>
 		</property>
 		<property name="durability" value="true" />
 		<property name="requestsRecovery" value="true" />
