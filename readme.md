@@ -36,6 +36,6 @@ Quartz 应用是通过数据库表来感知到另一应用的
 
 ```
 ### 参考技术资料：
-[1] Quartz在Spring中集群  http://sundoctor.iteye.com/blog/486055?page=2
-[2] Spring Boot集成持久化Quartz定时任务管理和界面展示 http://blog.csdn.net/u012907049/article/details/73801122
-[3] Spring+SpringMVC+mybatis+Quartz整合  http://blog.csdn.net/u012907049/article/details/70273080
+1. Quartz在Spring中集群  http://sundoctor.iteye.com/blog/486055?page=2
+2. Spring Boot集成持久化Quartz定时任务管理和界面展示 http://blog.csdn.net/u012907049/article/details/73801122
+3. Spring+SpringMVC+mybatis+Quartz整合  http://blog.csdn.net/u012907049/article/details/70273080
