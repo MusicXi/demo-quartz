@@ -30,7 +30,12 @@ Quartz 应用是通过数据库表来感知到另一应用的
 ### 集群环境下开发注意
 1.修改Job的类名称及包路径时 QuartzJobBean,需要修改qrtz_job_details.JOB_CLASS_NAME 对应名称. 或者初始化qrtz库表。
 否则将报如下错误:
+///
  org.quartz.JobPersistenceException: Couldn't store trigger 'DEFAULT.trigger1' for 'DEFAULT.jobDetail1' job:com.sundoctor.quartz.cluster.example.MyQuartzJobBean1 [See nested exception: java.lang.ClassNotFoundException: com.sundoctor.quartz.cluster.example.MyQuartzJobBean1]
 
+``` 
+ org.quartz.JobPersistenceException: Couldn't store trigger 'DEFAULT.trigger1' for 'DEFAULT.jobDetail1' job:com.sundoctor.quartz.cluster.example.MyQuartzJobBean1 [See nested exception: java.lang.ClassNotFoundException: com.sundoctor.quartz.cluster.example.MyQuartzJobBean1]
+
+```
 ### 参考技术资料：
 http://sundoctor.iteye.com/blog/486055?page=2
