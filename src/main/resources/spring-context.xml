@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<beans xmlns="http://www.springframework.org/schema/beans"  
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jdbc="http://www.springframework.org/schema/jdbc"  
+    xmlns:context="http://www.springframework.org/schema/context"  
+    xsi:schemaLocation="     
+    http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd  
+   http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd  
+   http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd  
+   ">  
+  
+    <context:component-scan base-package="com.sundoctor" />  
+  
+    <!-- 属性文件读入 -->  
+    <bean id="propertyConfigurer"  
+        class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">  
+        <property name="locations">  
+            <list>  
+                <value>classpath:jdbc.properties</value>  
+            </list>  
+        </property>  
+    </bean>  
+  
+  
+    <!-- 数据源定义,使用c3p0 连接池 -->  
+<!--     <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"  
+        destroy-method="close">  
+        <property name="driverClass" value="${jdbc.driverClassName}" />  
+        <property name="jdbcUrl" value="${jdbc.url}" />  
+        <property name="user" value="${jdbc.username}" />  
+        <property name="password" value="${jdbc.password}" />  
+        <property name="initialPoolSize" value="${cpool.minPoolSize}" />  
+        <property name="minPoolSize" value="${cpool.minPoolSize}" />  
+        <property name="maxPoolSize" value="${cpool.maxPoolSize}" />  
+        <property name="acquireIncrement" value="${cpool.acquireIncrement}" />  
+        <property name="maxIdleTime" value="${cpool.maxIdleTime}" /> 
+    </bean>   -->
+    
+    <!-- 数据源配置,不使用连接池 jdbc dataSource-->
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">         
+		<property name="driverClassName" value="${jdbc.driverClassName}"/>        
+		<property name="url" value="${jdbc.url}"/>         
+		<property name="username" value="${jdbc.username}"/>         
+		<property name="password" value="${jdbc.password}"/>    
+	</bean>
+</beans> 
