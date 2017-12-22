@@ -11,7 +11,7 @@
 		<property name="configLocation" value="classpath:quartz.properties" />
 		<property name="triggers">
 			<list>
-				<ref bean="trigger1" />
+				<!-- <ref bean="trigger1" /> -->
 				<ref bean="trigger2" />
 			</list>
 		</property>

@@ -1,6 +1,7 @@
 package com.cnc.cloud.quartz.cluster.example;  
   
 import org.quartz.DisallowConcurrentExecution;
+import org.quartz.JobDetail;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 import org.quartz.PersistJobDataAfterExecution;
@@ -24,7 +25,9 @@ public class MyQuartzJobBean2 extends QuartzJobBean {
         SimpleService simpleService = getApplicationContext(jobexecutioncontext).getBean("simpleService",  
                 SimpleService.class);  
         String instanceId = jobexecutioncontext.getFireInstanceId();
-        System.out.println(instanceId + "=>>" +  simpleService.testMethod2());
+        JobDetail j=jobexecutioncontext.getJobDetail();
+        String description = j.getDescription();
+        System.out.println(instanceId+ "("+ description + ") =>> "  + simpleService.testMethod2());
   
     }  
   

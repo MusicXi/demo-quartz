@@ -14,4 +14,8 @@ public class SimpleService {
     public String testMethod2(){  
     	return "testMethod2.....执行2.....";    
     }  
+    
+    public void hello(){  
+    	System.out.println("哈哈哈哈哈.....执行2.....");    
+    }  
 }
