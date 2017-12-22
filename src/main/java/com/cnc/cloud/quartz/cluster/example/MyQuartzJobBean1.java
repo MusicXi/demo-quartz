@@ -24,6 +24,8 @@ public class MyQuartzJobBean1 extends QuartzJobBean {
         SimpleService simpleService = getApplicationContext(jobexecutioncontext).getBean("simpleService",  
                 SimpleService.class);  
         simpleService.testMethod1();  
+        String instanceId = jobexecutioncontext.getFireInstanceId();
+        System.out.println(instanceId + "=>>" +  simpleService.testMethod1());
   
     }  
   
