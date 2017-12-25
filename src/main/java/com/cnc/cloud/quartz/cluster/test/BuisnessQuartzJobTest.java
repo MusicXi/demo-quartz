@@ -1,4 +1,4 @@
-package com.cnc.cloud.quartz.cluster.example.test;
+package com.cnc.cloud.quartz.cluster.test;
 
 import java.util.List;
 

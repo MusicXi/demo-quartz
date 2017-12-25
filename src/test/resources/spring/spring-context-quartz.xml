@@ -9,15 +9,15 @@
 		<property name="dataSource" ref="dataSource" />
 		<property name="applicationContextSchedulerContextKey" value="applicationContextKey" />
 		<property name="configLocation" value="classpath:quartz.properties" />
-		<!-- <property name="triggers">
+		<property name="triggers">
 			<list>
 				<ref bean="trigger1" /> 
 				<ref bean="trigger2" />
 			</list>
-		</property> -->
+		</property> 
 	</bean>
 
-	<!-- <bean id="jobDetail1"
+	<bean id="jobDetail1"
 		class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
 		<property name="jobClass">
 			<value>com.cnc.cloud.quartz.cluster.example.MyQuartzJobBean1</value>
@@ -43,6 +43,6 @@
 		class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
 		<property name="jobDetail" ref="jobDetail2" />
 		<property name="cronExpression" value="*/10 * * * * ?" />
-	</bean> -->
+	</bean>
 
 </beans>  

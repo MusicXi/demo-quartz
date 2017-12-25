@@ -4,6 +4,7 @@
 	<groupId>com.myron.demo</groupId>
 	<artifactId>demo-quartz</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	<packaging>war</packaging>
 
 	<!-- 指定maven仓库 (MAVEN_HOME/conf/settings.xml 已配可省) -->
 	<repositories>
