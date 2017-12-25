@@ -9,12 +9,12 @@
 		<property name="dataSource" ref="dataSource" />
 		<property name="applicationContextSchedulerContextKey" value="applicationContextKey" />
 		<property name="configLocation" value="classpath:quartz.properties" />
-		<property name="triggers">
+		<!-- <property name="triggers">
 			<list>
-				<!-- <ref bean="trigger1" /> -->
+				<ref bean="trigger1" /> 
 				<ref bean="trigger2" />
 			</list>
-		</property>
+		</property> -->
 	</bean>
 
 	<bean id="jobDetail1"
