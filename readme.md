@@ -1,7 +1,7 @@
 # quartz集群
 
 ### 说明内容
-demo地址:https://github.com/MusicXi/demo-quartz.git
+https://github.com/MusicXi/demo-quartz.git
 
 #### 1.quartz 集群如何工作
 > 一个 Quartz 集群中的每个节点是一个独立的 Quartz 应用，它又管理着其他的节点。也就是你必须对每个节点分别启动或停止。
