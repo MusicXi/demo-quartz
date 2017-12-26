@@ -23,6 +23,7 @@ public class QuartzDBTest {
 	public void listJobDetail() {
 		List<QrtzJobDetails> list = new ArrayList<>();
 		QrtzJobDetails qrtzJobDetails = new QrtzJobDetails();
+		qrtzJobDetails.setJobName("jobName.helloService.hello");
 		list = this.qrtzJobDetailsDao.selectList(qrtzJobDetails);
 		System.out.println(list);
 	}

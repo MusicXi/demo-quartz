@@ -29,9 +29,9 @@ public interface QrtzJobDetailsDao {
 	
 	//查询记录列表
 	List<QrtzJobDetails> selectList(QrtzJobDetails qrtzJobDetails);
-
+	List<QrtzJobDetails> selectListByPage(Map<String, Object> map);	
 	
 	List<Map<String, Object>> selectMapList(QrtzJobDetails qrtzJobDetails);
-
+	List<Map<String, Object>> selectMapListByPage(Map<String, Object> map);
 
 }

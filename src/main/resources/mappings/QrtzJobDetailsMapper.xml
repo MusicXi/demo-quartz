@@ -53,53 +53,84 @@
   		select 
 	    <include refid="Base_Column_List" />
 	    from qrtz_job_details t
-  	</select>
-  	
-  	<select id="selectListByPage" resultMap="BaseResultMap">
-  		select 
-	    <include refid="Base_Column_List" />
-	    from qrtz_job_details t
 	    <where>
-	    	<if test="qrtzJobDetails.schedName != null and qrtzJobDetails.schedName !='' ">
-	    	 	and t.SCHED_NAME =#{qrtzJobDetails.schedName}
+	    	<if test="schedName != null and schedName !='' ">
+	    	 	and t.SCHED_NAME =#{schedName}
 	    	</if>
-	    	<if test="qrtzJobDetails.jobName != null and qrtzJobDetails.jobName !='' ">
-	    	 	and t.JOB_NAME =#{qrtzJobDetails.jobName}
+	    	<if test="jobName != null and jobName !='' ">
+	    	 	and t.JOB_NAME =#{jobName}
 	    	</if>
-	    	<if test="qrtzJobDetails.jobGroup != null and qrtzJobDetails.jobGroup !='' ">
-	    	 	and t.JOB_GROUP =#{qrtzJobDetails.jobGroup}
+	    	<if test="jobGroup != null and jobGroup !='' ">
+	    	 	and t.JOB_GROUP =#{jobGroup}
 	    	</if>
-	    	<if test="qrtzJobDetails.description != null and qrtzJobDetails.description !='' ">
-	    	 	and t.DESCRIPTION =#{qrtzJobDetails.description}
+	    	<if test="description != null and description !='' ">
+	    	 	and t.DESCRIPTION =#{description}
 	    	</if>
-	    	<if test="qrtzJobDetails.jobClassName != null and qrtzJobDetails.jobClassName !='' ">
-	    	 	and t.JOB_CLASS_NAME =#{qrtzJobDetails.jobClassName}
+	    	<if test="jobClassName != null and jobClassName !='' ">
+	    	 	and t.JOB_CLASS_NAME =#{jobClassName}
 	    	</if>
-	    	<if test="qrtzJobDetails.isDurable != null and qrtzJobDetails.isDurable !='' ">
-	    	 	and t.IS_DURABLE =#{qrtzJobDetails.isDurable}
+	    	<if test="isDurable != null and isDurable !='' ">
+	    	 	and t.IS_DURABLE =#{isDurable}
 	    	</if>
-	    	<if test="qrtzJobDetails.isNonconcurrent != null and qrtzJobDetails.isNonconcurrent !='' ">
-	    	 	and t.IS_NONCONCURRENT =#{qrtzJobDetails.isNonconcurrent}
+	    	<if test="isNonconcurrent != null and isNonconcurrent !='' ">
+	    	 	and t.IS_NONCONCURRENT =#{isNonconcurrent}
 	    	</if>
-	    	<if test="qrtzJobDetails.isUpdateData != null and qrtzJobDetails.isUpdateData !='' ">
-	    	 	and t.IS_UPDATE_DATA =#{qrtzJobDetails.isUpdateData}
+	    	<if test="isUpdateData != null and isUpdateData !='' ">
+	    	 	and t.IS_UPDATE_DATA =#{isUpdateData}
 	    	</if>
-	    	<if test="qrtzJobDetails.requestsRecovery != null and qrtzJobDetails.requestsRecovery !='' ">
-	    	 	and t.REQUESTS_RECOVERY =#{qrtzJobDetails.requestsRecovery}
+	    	<if test="requestsRecovery != null and requestsRecovery !='' ">
+	    	 	and t.REQUESTS_RECOVERY =#{requestsRecovery}
 	    	</if>
-	    	<if test="qrtzJobDetails.jobData != null and qrtzJobDetails.jobData !='' ">
-	    	 	and t.JOB_DATA =#{qrtzJobDetails.jobData}
+	    	<if test="jobData != null and jobData !='' ">
+	    	 	and t.JOB_DATA =#{jobData}
 	    	</if>
 	    </where>
-	    <if test="page.sortName != null and page.sortOrder!=null">
+		<!-- 	     
+		<if test="page.sortName != null and page.sortOrder!=null">
     	order by ${page.sortName} ${page.sortOrder} 
-		</if>
+		</if> -->
   	</select>
   	
   	<select id="selectMapList" resultMap="DataResultMap">
   		select 
 	    <include refid="Base_Column_List" />
 	    from qrtz_job_details t
+	    <where>
+	    	<if test="schedName != null and schedName !='' ">
+	    	 	and t.SCHED_NAME =#{schedName}
+	    	</if>
+	    	<if test="jobName != null and jobName !='' ">
+	    	 	and t.JOB_NAME =#{jobName}
+	    	</if>
+	    	<if test="jobGroup != null and jobGroup !='' ">
+	    	 	and t.JOB_GROUP =#{jobGroup}
+	    	</if>
+	    	<if test="description != null and description !='' ">
+	    	 	and t.DESCRIPTION =#{description}
+	    	</if>
+	    	<if test="jobClassName != null and jobClassName !='' ">
+	    	 	and t.JOB_CLASS_NAME =#{jobClassName}
+	    	</if>
+	    	<if test="isDurable != null and isDurable !='' ">
+	    	 	and t.IS_DURABLE =#{isDurable}
+	    	</if>
+	    	<if test="isNonconcurrent != null and isNonconcurrent !='' ">
+	    	 	and t.IS_NONCONCURRENT =#{isNonconcurrent}
+	    	</if>
+	    	<if test="isUpdateData != null and isUpdateData !='' ">
+	    	 	and t.IS_UPDATE_DATA =#{isUpdateData}
+	    	</if>
+	    	<if test="requestsRecovery != null and requestsRecovery !='' ">
+	    	 	and t.REQUESTS_RECOVERY =#{requestsRecovery}
+	    	</if>
+	    	<if test="jobData != null and jobData !='' ">
+	    	 	and t.JOB_DATA =#{jobData}
+	    	</if>
+	    </where>
+		<!-- 	     
+		<if test="page.sortName != null and page.sortOrder!=null">
+    	order by ${page.sortName} ${page.sortOrder} 
+		</if> -->
   	</select>
   	
   	<select id="selectMapListByPage" resultMap="DataResultMap">
