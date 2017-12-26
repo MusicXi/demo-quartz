@@ -4,8 +4,6 @@ import java.io.Serializable;
 
 import org.apache.commons.lang3.StringUtils;
 
-
-
 public class QrtzJobDetails implements Serializable{
 	private static final long serialVersionUID = 1L;
 	

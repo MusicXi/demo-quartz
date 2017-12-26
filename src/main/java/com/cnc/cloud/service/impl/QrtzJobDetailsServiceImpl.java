@@ -10,6 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+
 import com.cnc.cloud.bean.QrtzJobDetails;
 import com.cnc.cloud.dao.QrtzJobDetailsDao;
 import com.cnc.cloud.service.QrtzJobDetailsService;
@@ -46,7 +49,7 @@ public class QrtzJobDetailsServiceImpl  implements QrtzJobDetailsService {
 		
 		for (QrtzJobDetails qrtzJobDetails : qrtzJobDetailsList) {
 			//TODO 可修改主键生成Id方式
-//		    qrtzJobDetails.setSchedName(UuidUtils.creatUUID());
+		    //qrtzJobDetails.setSchedName(UuidUtils.creatUUID());
 			if (this.qrtzJobDetailsDao.insertSelective(qrtzJobDetails) != 1) {
 				throw new Exception("新增数据失败!");
 			}
@@ -131,6 +134,21 @@ public class QrtzJobDetailsServiceImpl  implements QrtzJobDetailsService {
 	@Override
 	public QrtzJobDetails findQrtzJobDetailsByPrimaryKey(String id) {
 		return this.qrtzJobDetailsDao.selectByPrimaryKey(id);
+	}
+
+	@Override
+	public Page<Map<String, Object>> findMapListByPage(QrtzJobDetails qrtzJobDetails, Page<Map<String, Object>> page) {
+		page = PageHelper.startPage(page.getPageNum(), page.getPageSize());
+		this.qrtzJobDetailsDao.selectMapList(qrtzJobDetails);
+		return page;
+	}
+	
+	@Override
+	public Page<QrtzJobDetails> findListByPage(QrtzJobDetails qrtzJobDetails, Page<QrtzJobDetails> page) {
+		page = PageHelper.startPage(page.getPageNum(), page.getPageSize());
+		this.qrtzJobDetailsDao.selectList(qrtzJobDetails);
+		return page;
+
 	}
 
 	@Override

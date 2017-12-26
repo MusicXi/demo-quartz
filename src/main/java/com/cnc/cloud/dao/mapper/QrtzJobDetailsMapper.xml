@@ -1,0 +1,352 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--namespace用于接口绑定-->
+<mapper namespace="com.cnc.cloud.dao.QrtzJobDetailsDao">
+
+	<resultMap id="BaseResultMap" type="com.cnc.cloud.bean.QrtzJobDetails">
+	    <id column="SCHED_NAME" property="schedName" jdbcType="VARCHAR" /> 
+	    <id column="JOB_NAME" property="jobName" jdbcType="VARCHAR" /> 
+	    <id column="JOB_GROUP" property="jobGroup" jdbcType="VARCHAR" /> 
+		<result column="DESCRIPTION" property="description" jdbcType="VARCHAR" />
+		<result column="JOB_CLASS_NAME" property="jobClassName" jdbcType="VARCHAR" />
+		<result column="IS_DURABLE" property="isDurable" jdbcType="VARCHAR" />
+		<result column="IS_NONCONCURRENT" property="isNonconcurrent" jdbcType="VARCHAR" />
+		<result column="IS_UPDATE_DATA" property="isUpdateData" jdbcType="VARCHAR" />
+		<result column="REQUESTS_RECOVERY" property="requestsRecovery" jdbcType="VARCHAR" />
+		<result column="JOB_DATA" property="jobData" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<resultMap id="DataResultMap" type="java.util.Map">
+	    <id column="SCHED_NAME" property="schedName" jdbcType="VARCHAR" /> 
+	    <id column="JOB_NAME" property="jobName" jdbcType="VARCHAR" /> 
+	    <id column="JOB_GROUP" property="jobGroup" jdbcType="VARCHAR" /> 
+		<result column="DESCRIPTION" property="description" jdbcType="VARCHAR" />
+		<result column="JOB_CLASS_NAME" property="jobClassName" jdbcType="VARCHAR" />
+		<result column="IS_DURABLE" property="isDurable" jdbcType="VARCHAR" />
+		<result column="IS_NONCONCURRENT" property="isNonconcurrent" jdbcType="VARCHAR" />
+		<result column="IS_UPDATE_DATA" property="isUpdateData" jdbcType="VARCHAR" />
+		<result column="REQUESTS_RECOVERY" property="requestsRecovery" jdbcType="VARCHAR" />
+		<result column="JOB_DATA" property="jobData" jdbcType="VARCHAR" />
+	</resultMap>	
+	
+	<sql id="Base_Column_List" >
+		t.SCHED_NAME ,
+		t.JOB_NAME ,
+		t.JOB_GROUP ,
+		t.DESCRIPTION ,
+		t.JOB_CLASS_NAME ,
+		t.IS_DURABLE ,
+		t.IS_NONCONCURRENT ,
+		t.IS_UPDATE_DATA ,
+		t.REQUESTS_RECOVERY ,
+		t.JOB_DATA 
+  	</sql>
+  	
+  	<select id="selectByPrimaryKey" resultMap="BaseResultMap">
+  		select 
+	    <include refid="Base_Column_List" />
+	    from qrtz_job_details t 
+	    where t.SCHED_NAME = #{schedName}
+  	</select>
+  	
+  	<select id="selectList" resultMap="BaseResultMap">
+  		select 
+	    <include refid="Base_Column_List" />
+	    from qrtz_job_details t
+	    <where>
+	    	<if test="schedName != null and schedName !='' ">
+	    	 	and t.SCHED_NAME =#{schedName}
+	    	</if>
+	    	<if test="jobName != null and jobName !='' ">
+	    	 	and t.JOB_NAME =#{jobName}
+	    	</if>
+	    	<if test="jobGroup != null and jobGroup !='' ">
+	    	 	and t.JOB_GROUP =#{jobGroup}
+	    	</if>
+	    	<if test="description != null and description !='' ">
+	    	 	and t.DESCRIPTION =#{description}
+	    	</if>
+	    	<if test="jobClassName != null and jobClassName !='' ">
+	    	 	and t.JOB_CLASS_NAME =#{jobClassName}
+	    	</if>
+	    	<if test="isDurable != null and isDurable !='' ">
+	    	 	and t.IS_DURABLE =#{isDurable}
+	    	</if>
+	    	<if test="isNonconcurrent != null and isNonconcurrent !='' ">
+	    	 	and t.IS_NONCONCURRENT =#{isNonconcurrent}
+	    	</if>
+	    	<if test="isUpdateData != null and isUpdateData !='' ">
+	    	 	and t.IS_UPDATE_DATA =#{isUpdateData}
+	    	</if>
+	    	<if test="requestsRecovery != null and requestsRecovery !='' ">
+	    	 	and t.REQUESTS_RECOVERY =#{requestsRecovery}
+	    	</if>
+	    	<if test="jobData != null and jobData !='' ">
+	    	 	and t.JOB_DATA =#{jobData}
+	    	</if>
+	    </where>
+		<!-- 	     
+		<if test="page.sortName != null and page.sortOrder!=null">
+    	order by ${page.sortName} ${page.sortOrder} 
+		</if> -->
+  	</select>
+  	
+  	<select id="selectMapList" resultMap="DataResultMap">
+  		select 
+	    <include refid="Base_Column_List" />
+	    from qrtz_job_details t
+	    <where>
+	    	<if test="schedName != null and schedName !='' ">
+	    	 	and t.SCHED_NAME =#{schedName}
+	    	</if>
+	    	<if test="jobName != null and jobName !='' ">
+	    	 	and t.JOB_NAME =#{jobName}
+	    	</if>
+	    	<if test="jobGroup != null and jobGroup !='' ">
+	    	 	and t.JOB_GROUP =#{jobGroup}
+	    	</if>
+	    	<if test="description != null and description !='' ">
+	    	 	and t.DESCRIPTION =#{description}
+	    	</if>
+	    	<if test="jobClassName != null and jobClassName !='' ">
+	    	 	and t.JOB_CLASS_NAME =#{jobClassName}
+	    	</if>
+	    	<if test="isDurable != null and isDurable !='' ">
+	    	 	and t.IS_DURABLE =#{isDurable}
+	    	</if>
+	    	<if test="isNonconcurrent != null and isNonconcurrent !='' ">
+	    	 	and t.IS_NONCONCURRENT =#{isNonconcurrent}
+	    	</if>
+	    	<if test="isUpdateData != null and isUpdateData !='' ">
+	    	 	and t.IS_UPDATE_DATA =#{isUpdateData}
+	    	</if>
+	    	<if test="requestsRecovery != null and requestsRecovery !='' ">
+	    	 	and t.REQUESTS_RECOVERY =#{requestsRecovery}
+	    	</if>
+	    	<if test="jobData != null and jobData !='' ">
+	    	 	and t.JOB_DATA =#{jobData}
+	    	</if>
+	    </where>
+		<!-- 	     
+		<if test="page.sortName != null and page.sortOrder!=null">
+    	order by ${page.sortName} ${page.sortOrder} 
+		</if> -->
+  	</select>
+  	
+  	<select id="selectMapListByPage" resultMap="DataResultMap">
+  		select 
+	    <include refid="Base_Column_List" />
+	    from qrtz_job_details t
+	    <where>
+	    	<if test="qrtzJobDetails.schedName != null and qrtzJobDetails.schedName !='' ">
+	    	 	and t.SCHED_NAME =#{qrtzJobDetails.schedName}
+	    	</if>
+	    	<if test="qrtzJobDetails.jobName != null and qrtzJobDetails.jobName !='' ">
+	    	 	and t.JOB_NAME =#{qrtzJobDetails.jobName}
+	    	</if>
+	    	<if test="qrtzJobDetails.jobGroup != null and qrtzJobDetails.jobGroup !='' ">
+	    	 	and t.JOB_GROUP =#{qrtzJobDetails.jobGroup}
+	    	</if>
+	    	<if test="qrtzJobDetails.description != null and qrtzJobDetails.description !='' ">
+	    	 	and t.DESCRIPTION =#{qrtzJobDetails.description}
+	    	</if>
+	    	<if test="qrtzJobDetails.jobClassName != null and qrtzJobDetails.jobClassName !='' ">
+	    	 	and t.JOB_CLASS_NAME =#{qrtzJobDetails.jobClassName}
+	    	</if>
+	    	<if test="qrtzJobDetails.isDurable != null and qrtzJobDetails.isDurable !='' ">
+	    	 	and t.IS_DURABLE =#{qrtzJobDetails.isDurable}
+	    	</if>
+	    	<if test="qrtzJobDetails.isNonconcurrent != null and qrtzJobDetails.isNonconcurrent !='' ">
+	    	 	and t.IS_NONCONCURRENT =#{qrtzJobDetails.isNonconcurrent}
+	    	</if>
+	    	<if test="qrtzJobDetails.isUpdateData != null and qrtzJobDetails.isUpdateData !='' ">
+	    	 	and t.IS_UPDATE_DATA =#{qrtzJobDetails.isUpdateData}
+	    	</if>
+	    	<if test="qrtzJobDetails.requestsRecovery != null and qrtzJobDetails.requestsRecovery !='' ">
+	    	 	and t.REQUESTS_RECOVERY =#{qrtzJobDetails.requestsRecovery}
+	    	</if>
+	    	<if test="qrtzJobDetails.jobData != null and qrtzJobDetails.jobData !='' ">
+	    	 	and t.JOB_DATA =#{qrtzJobDetails.jobData}
+	    	</if>
+	    </where>
+	    <if test="page.sortName != null and page.sortOrder!=null">
+    	order by ${page.sortName} ${page.sortOrder} 
+		</if>
+  	</select>
+
+	
+	<insert id="insert" parameterType="com.cnc.cloud.bean.QrtzJobDetails" >
+	    insert into qrtz_job_details (
+			SCHED_NAME,
+			JOB_NAME,
+			JOB_GROUP,
+			DESCRIPTION,
+			JOB_CLASS_NAME,
+			IS_DURABLE,
+			IS_NONCONCURRENT,
+			IS_UPDATE_DATA,
+			REQUESTS_RECOVERY,
+			JOB_DATA
+	    )values (
+	      	#{schedName,jdbcType=VARCHAR},
+	      	#{jobName,jdbcType=VARCHAR},
+	      	#{jobGroup,jdbcType=VARCHAR},
+	      	#{description,jdbcType=VARCHAR},
+	      	#{jobClassName,jdbcType=VARCHAR},
+	      	#{isDurable,jdbcType=VARCHAR},
+	      	#{isNonconcurrent,jdbcType=VARCHAR},
+	      	#{isUpdateData,jdbcType=VARCHAR},
+	      	#{requestsRecovery,jdbcType=VARCHAR},
+	      	#{jobData,jdbcType=VARCHAR}
+	    )
+  	</insert>
+  	
+	<insert id="insertByBatch" parameterType="java.util.List" >
+	    insert into qrtz_job_details (
+			SCHED_NAME,
+			JOB_NAME,
+			JOB_GROUP,
+			DESCRIPTION,
+			JOB_CLASS_NAME,
+			IS_DURABLE,
+			IS_NONCONCURRENT,
+			IS_UPDATE_DATA,
+			REQUESTS_RECOVERY,
+			JOB_DATA
+	    )values  
+	    <foreach collection="list" item="item" index="index" separator=",">
+	    (
+	      	#{item.schedName,jdbcType=VARCHAR},
+	      	#{item.jobName,jdbcType=VARCHAR},
+	      	#{item.jobGroup,jdbcType=VARCHAR},
+	      	#{item.description,jdbcType=VARCHAR},
+	      	#{item.jobClassName,jdbcType=VARCHAR},
+	      	#{item.isDurable,jdbcType=VARCHAR},
+	      	#{item.isNonconcurrent,jdbcType=VARCHAR},
+	      	#{item.isUpdateData,jdbcType=VARCHAR},
+	      	#{item.requestsRecovery,jdbcType=VARCHAR},
+	      	#{item.jobData,jdbcType=VARCHAR}
+	    )
+	    </foreach>
+  	</insert>
+  	
+  	<insert id="insertSelective" parameterType="com.cnc.cloud.bean.QrtzJobDetails" >
+	    insert into qrtz_job_details
+	    <trim prefix="(" suffix=")" suffixOverrides="," >
+			<if test="schedName != null">
+				SCHED_NAME,
+			</if>
+			<if test="jobName != null">
+				JOB_NAME,
+			</if>
+			<if test="jobGroup != null">
+				JOB_GROUP,
+			</if>
+			<if test="description != null">
+				DESCRIPTION,
+			</if>
+			<if test="jobClassName != null">
+				JOB_CLASS_NAME,
+			</if>
+			<if test="isDurable != null">
+				IS_DURABLE,
+			</if>
+			<if test="isNonconcurrent != null">
+				IS_NONCONCURRENT,
+			</if>
+			<if test="isUpdateData != null">
+				IS_UPDATE_DATA,
+			</if>
+			<if test="requestsRecovery != null">
+				REQUESTS_RECOVERY,
+			</if>
+			<if test="jobData != null">
+				JOB_DATA,
+			</if>
+	    </trim>
+	    <trim prefix="values (" suffix=")" suffixOverrides="," >
+			<if test="schedName != null">
+				#{schedName,jdbcType=VARCHAR},
+			</if>
+			<if test="jobName != null">
+				#{jobName,jdbcType=VARCHAR},
+			</if>
+			<if test="jobGroup != null">
+				#{jobGroup,jdbcType=VARCHAR},
+			</if>
+			<if test="description != null">
+				#{description,jdbcType=VARCHAR},
+			</if>
+			<if test="jobClassName != null">
+				#{jobClassName,jdbcType=VARCHAR},
+			</if>
+			<if test="isDurable != null">
+				#{isDurable,jdbcType=VARCHAR},
+			</if>
+			<if test="isNonconcurrent != null">
+				#{isNonconcurrent,jdbcType=VARCHAR},
+			</if>
+			<if test="isUpdateData != null">
+				#{isUpdateData,jdbcType=VARCHAR},
+			</if>
+			<if test="requestsRecovery != null">
+				#{requestsRecovery,jdbcType=VARCHAR},
+			</if>
+			<if test="jobData != null">
+				#{jobData,jdbcType=VARCHAR},
+			</if>
+	    </trim>
+    </insert>
+    
+    <delete id="deleteByPrimaryKey">
+	    delete from qrtz_job_details where SCHED_NAME= #{schedName}
+	    delete from qrtz_job_details where JOB_NAME= #{jobName}
+	    delete from qrtz_job_details where JOB_GROUP= #{jobGroup}
+	</delete>
+  	
+  	<update id="updateByPrimaryKey" parameterType="com.cnc.cloud.bean.QrtzJobDetails">
+		update qrtz_job_details set
+			DESCRIPTION=#{description},	
+			JOB_CLASS_NAME=#{jobClassName},	
+			IS_DURABLE=#{isDurable},	
+			IS_NONCONCURRENT=#{isNonconcurrent},	
+			IS_UPDATE_DATA=#{isUpdateData},	
+			REQUESTS_RECOVERY=#{requestsRecovery},	
+			JOB_DATA=#{jobData}	
+		where SCHED_NAME=#{schedName}
+		where JOB_NAME=#{jobName}
+		where JOB_GROUP=#{jobGroup}
+	</update>
+	<update id="updateByPrimaryKeySelective" parameterType="com.cnc.cloud.bean.QrtzJobDetails">
+		update qrtz_job_details 
+		<set>
+			<if test="description != null">
+				DESCRIPTION=#{description},
+			</if>
+			<if test="jobClassName != null">
+				JOB_CLASS_NAME=#{jobClassName},
+			</if>
+			<if test="isDurable != null">
+				IS_DURABLE=#{isDurable},
+			</if>
+			<if test="isNonconcurrent != null">
+				IS_NONCONCURRENT=#{isNonconcurrent},
+			</if>
+			<if test="isUpdateData != null">
+				IS_UPDATE_DATA=#{isUpdateData},
+			</if>
+			<if test="requestsRecovery != null">
+				REQUESTS_RECOVERY=#{requestsRecovery},
+			</if>
+			<if test="jobData != null">
+				JOB_DATA=#{jobData},
+			</if>
+		</set>
+		where SCHED_NAME=#{schedName}
+		where JOB_NAME=#{jobName}
+		where JOB_GROUP=#{jobGroup}
+	</update>
+	
+
+  	
+</mapper>
