@@ -11,7 +11,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  *
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations={"classpath:spring/spring-context.xml", "classpath:spring/spring-context-quartz.xml"})
+@ContextConfiguration(locations={"classpath:spring/spring-context.xml", "classpath:spring/spring-quartz.xml"})
 public class MainTest {  
   
     @Test
