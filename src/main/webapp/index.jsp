@@ -9,13 +9,28 @@
   <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
 <!-- <script src="common/js/jquery/jquery-2.1.4.js"></script> -->
 
+  <style>
+      .el-select .el-input {
+        width: 110px;
+      }
+
+      .el-table .info-row {
+            background: #c9e5f5;
+      }   
+
+      #top {
+          background:#20A0FF;
+          padding:5px;
+          overflow:hidden
+      }
+    </style>
 </head>
 <body>
   <div id="test">
-    <el-button @click="visible = true">按钮</el-button>
+<!--     <el-button @click="visible = true">按钮</el-button>
     <el-dialog :visible.sync="visible" title="Hello world">
       <p>欢迎使用 Element</p>
-    </el-dialog>
+    </el-dialog> -->
     
     <div id="top">			
 			<span>	
@@ -30,8 +45,6 @@
         <div style="margin-top:15px">
            <el-input placeholder="请输入内容" v-model="criteria" style="padding-bottom:10px;">
 			  <el-select v-model="select" slot="prepend" placeholder="请选择">
-			     <el-option label="id" value="1"></el-option>
-			     <el-option label="name" value="2"></el-option>
 			     <el-option label="jobName" value="3"></el-option>
 			  </el-select>
 			  <el-button slot="append" icon="search" v-on:click="search"></el-button>
@@ -42,7 +55,7 @@
 		    :data="tableData"
 		    style="width:100%"
 		    border
-		    :default-sort = "{prop: 'id', order: 'ascending'}"
+		    :default-sort = "{prop: 'jobName', order: 'ascending'}"
 		    @selection-change="handleSelectionChange"	
 		    @row-click="handleclick"
 		    :row-class-name = "tableRowClassName"
@@ -73,7 +86,7 @@
 		    </el-table-column>
 		    <el-table-column
 		      prop="jobClassName"
-		      label="jobClassName"
+		      label="任务类名"
 		      sortable
 		      show-overflow-tooltip>
 		    </el-table-column>
@@ -96,7 +109,7 @@
 			      @size-change="handleSizeChange"
 			      @current-change="handleCurrentChange"
 			      :current-page="currentPage"
-			      :page-sizes="[10, 20, 30, 40]"
+			      :page-sizes="[5, 10, 20]"
 			      :page-size="pagesize"
 			      layout="total, sizes, prev, pager, next, jumper"
 			      :total="totalCount">
@@ -164,7 +177,7 @@
 		        //从服务器读取数据
 				loadData: function(criteria, pageNum, pageSize){	
 					debugger;
-					this.$http.post(this.url,{parameter:criteria, pageNum:pageNum, pageSize:pageSize},{emulateJSON: true}).then(function(res){
+					this.$http.post(this.url,{jobName:criteria, pageNum:pageNum, pageSize:pageSize},{emulateJSON: true}).then(function(res){
                 		this.tableData = res.data.studentdata;
                 		this.totalCount = res.data.number;
                 	},function(){
