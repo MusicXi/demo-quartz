@@ -32,6 +32,8 @@
 	<!-- 启动对@AspectJ注解的支持 -->  
 	<aop:aspectj-autoproxy/> 
 	
+	<!-- 过滤静态资源 -->
+	<mvc:resources mapping="/common/**" location="/common/" />
 	
 	<!-- ViewResolver 解析视图名-->
 	<bean id="jspViewResolver"

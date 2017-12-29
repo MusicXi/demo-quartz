@@ -33,8 +33,8 @@ public class QrtzJobDetailsController {
 		//设置默认排序属性
 		//page.setDefaultSort("createTime", "desc");
 		page = this.qrtzJobDetailsService.findMapListByPage(qrtzJobDetails, page);
-		map.put("total", page.getTotal());
-		map.put("records", page.getResult());
+		map.put("studentdata", page);
+	    map.put("number", page.getTotal());
 		return map;
 	}
 	
