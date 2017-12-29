@@ -27,4 +27,10 @@
 		<property name="username" value="${jdbc.username}"/>         
 		<property name="password" value="${jdbc.password}"/>    
 	</bean>
+	
+	<!-- spring-mybatis config -->
+	<import resource="classpath:spring/spring-mybatis.xml"/>
+	
+	<!-- spring-quartz config -->
+	<!-- <import resource="classpath:spring/spring-quartz.xml"/> -->
 </beans> 
