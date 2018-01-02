@@ -1,6 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -14,6 +13,12 @@
   <!-- 引入组件库 -->
   <script src="https://unpkg.com/element-ui/lib/index.js"></script>
 <div id="app">
+  <el-button>默认按钮</el-button>
+  <el-button type="primary"><a href="helloVue.html">主要按钮</a></el-button>
+  <el-button type="success">成功按钮</el-button>
+  <el-button type="info">信息按钮</el-button>
+  <el-button type="warning">警告按钮</el-button>
+  <el-button type="danger">危险按钮</el-button>
 	<template>
 	  <el-table :data="tableData" stripe style="width: 100%">
 	    <el-table-column prop="date" label="日期" width="180">
@@ -24,6 +29,9 @@
 	    </el-table-column>
 	  </el-table>
 	</template>
+	<div>
+
+</div>
   <div align="center">
 			  <el-pagination
 			      @size-change="handleSizeChange"
@@ -105,5 +113,4 @@ var Main = {
 </script>
 	
 </body>
-</html>
 </html>

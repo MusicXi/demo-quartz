@@ -19,6 +19,11 @@
 		<url-pattern>/*</url-pattern> 
 	</filter-mapping>
 	
+	<!-- html请求由servlet默认处理 (视图与后端分离为前后端分离做准备) -->
+	<servlet-mapping>
+		<servlet-name>default</servlet-name>
+		<url-pattern>*.html</url-pattern>
+	</servlet-mapping>
 
 	<!--Spring MVC -->
 	<servlet>

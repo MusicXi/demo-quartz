@@ -14,9 +14,4 @@ public class HomeController {
 		return "/index";
 	}
 	
-	@RequestMapping("/element")
-	public String element(HttpServletRequest request ){
-		//return "/helloVue.jsp";
-		return "/elementUI.jsp";
-	}
 }
