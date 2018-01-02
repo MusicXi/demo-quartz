@@ -126,8 +126,10 @@
   <!-- 引入组件库 -->
   <script src="https://unpkg.com/element-ui/lib/index.js"></script>
   
+  <!-- vue-resource是vuejs的一个ajax插件，可以通过XMLHttpRequest或JSONP发起请求并处理响应 -->
   <script src="https://cdn.bootcss.com/vue-resource/1.3.4/vue-resource.common.js"></script>
-<!--   <script src="https://cdn.bootcss.com/jquery/2.2.4/jquery.js"></script> -->
+
+<!-- <script src="https://cdn.bootcss.com/jquery/2.2.4/jquery.js"></script> -->
   
   <script>
   
