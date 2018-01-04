@@ -41,6 +41,7 @@ public class QrtzJobDetailsController {
 	public Map<String, Object> addQrtzJobDetails(QrtzJobDetails qrtzJobDetails, HttpServletRequest request) throws Exception {
 		Map<String, Object> map = new HashMap<>();
 		map = this.qrtzJobDetailsService.createQrtzJobDetails(qrtzJobDetails);
+		
 		return map;
 	}
 	
