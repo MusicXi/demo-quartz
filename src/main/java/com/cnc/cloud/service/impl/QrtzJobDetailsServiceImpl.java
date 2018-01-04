@@ -4,18 +4,20 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.quartz.Scheduler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.scheduling.quartz.SchedulerFactoryBean;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
-
 import com.cnc.cloud.bean.QrtzJobDetails;
 import com.cnc.cloud.dao.QrtzJobDetailsDao;
 import com.cnc.cloud.service.QrtzJobDetailsService;
+
 
 @Service("qrtzJobDetailsService")
 @Transactional(rollbackFor=Exception.class)
@@ -24,6 +26,12 @@ public class QrtzJobDetailsServiceImpl  implements QrtzJobDetailsService {
 	
 	@Autowired
 	private QrtzJobDetailsDao qrtzJobDetailsDao;
+	
+	@Autowired
+	private SchedulerFactoryBean schedulerFactoryBean;
+	
+	@Autowired
+	private Scheduler scheduler; 
 	
 	@Override
 	public Map<String, Object> createQrtzJobDetails(QrtzJobDetails qrtzJobDetails) throws Exception{
