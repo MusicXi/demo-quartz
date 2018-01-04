@@ -14,8 +14,14 @@
 		<p>
 			就像HelloWorld展示的那样，app.html是view层，app.js是model层，通过vue.js（使用v-model这个指令）完成中间的底层逻辑，实现绑定的效果
 			(修改input中的数据,数据同步变化无需获取dom元素)</p>
-		<div>{{message + ' vue is awesome'}}</div>
 		<input type="text" v-model="message">
+		<div>修改input中的数据,数据同步变化 :{{message + ' vue is awesome'}}</div>
+		<div v-once> 使用"v-once"这个将不会改变: {{ message }}</div>
+		
+		<br>
+		<div>原始html</div>
+		<p>Using mustaches: {{ rawHtml }}</p>
+		<p>Using v-html directive: <span v-html="rawHtml"></span></p>
 	</div>
 	<br>
 
@@ -27,6 +33,9 @@
 	<div id="app-3">
 		<h2>3 条件与循环--切换元素是否显示 app3.seen = false</h2>
 		<p v-if="seen">现在你看到我了</p>
+		<button 
+			v-if="seen"
+			v-bind:disabled="isButtonDisabled">Button</button>
 	</div>
 	
 	<div id="app-4">
@@ -52,70 +61,105 @@
 	  <p>{{ message }}</p>
 	  <input v-model="message">
 	</div>
-	
-	<ol>
-	  <!-- 创建一个 todo-item 组件的实例 -->
-	  <todo-item></todo-item>
-	</ol>
-	
+
+
+
+	<div id="app-7">
+		<ol>
+			<!--
+	      现在我们为每个 todo-item 提供 todo 对象
+	      todo 对象是变量，即其内容可以是动态的。
+	      我们也需要为每个组件提供一个“key”，稍后再
+	      作详细解释。
+	    -->
+			<todo-item 
+				v-for="item in groceryList" 
+				v-bind:todo="item"
+				v-bind:key="item.id"> 
+			</todo-item>
+		</ol>
+	</div>
+
 	<script>
-	var app = new Vue({
-	    el:'#app',
-	    data: {
-	        message:'hello vue.js.'
-	    }
-	});
-	
-	var app2 = new Vue({
-		  el: '#app-2',
-		  data: {
-		    message: '页面加载于 ' + new Date().toLocaleString()
-		  }
-	});
-	
-	var app3 = new Vue({
-		  el: '#app-3',
-		  data: {
-		    seen: true
-		  }
+		var app = new Vue({
+			el : '#app',
+			data : {
+				message : 'hello vue.js.',
+				rawHtml : '<span style="color:red">This should be red</span>'
+			},
+			
+			//created 钩子可以用来在一个实例被创建之后执行代码
+		  	created: function () {
+			    // `this` 指向 vm 实例
+			    console.log('message is: ' + this.message)
+			 }
 		});
-	
-	var app4 = new Vue({
-		  el: '#app-4',
+
+		var app2 = new Vue({
+			el : '#app-2',
+			data : {
+				message : '页面加载于 ' + new Date().toLocaleString()
+			}
+		});
+
+		var app3 = new Vue({
+			el : '#app-3',
+			data : {
+				seen : true,
+				isButtonDisabled : true
+			}
+		});
+
+		var app4 = new Vue({
+			el : '#app-4',
+			data : {
+				todos : [ {
+					text : '学习 JavaScript'
+				}, {
+					text : '学习 Vue'
+				}, {
+					text : '整个牛项目'
+				} ]
+			}
+		});
+
+		var app5 = new Vue({
+			el : '#app-5',
+			data : {
+				message : 'Hello Vue.js!'
+			},
+			methods : {
+				reverseMessage : function() {
+					this.message = this.message.split('').reverse().join('')
+				}
+			}
+		});
+
+		var app6 = new Vue({
+			el : '#app-6',
+			data : {
+				message : 'Hello Vue!'
+			}
+		});
+		
+		// 定义名为 todo-item 的新组件
+		// Vue 组件都是 Vue 实例
+		Vue.component('todo-item', {
+			  props: ['todo'],
+			  template: '<li>{{ todo.text }}</li>'
+			});
+
+		var app7 = new Vue({
+		  el: '#app-7',
 		  data: {
-		    todos: [
-		      { text: '学习 JavaScript' },
-		      { text: '学习 Vue' },
-		      { text: '整个牛项目' }
+		    groceryList: [
+		      { id: 0, text: '蔬菜' },
+		      { id: 1, text: '奶酪' },
+		      { id: 2, text: '随便其它什么人吃的东西' }
 		    ]
 		  }
 		});
-	
-	var app5 = new Vue({
-		  el: '#app-5',
-		  data: {
-		    message: 'Hello Vue.js!'
-		  },
-		  methods: {
-		    reverseMessage: function () {
-		      this.message = this.message.split('').reverse().join('')
-		    }
-		  }
-		});
-	
-	var app6 = new Vue({
-		  el: '#app-6',
-		  data: {
-		    message: 'Hello Vue!'
-		  }
-		});
-	
-	// 定义名为 todo-item 的新组件
-	Vue.component('todo-item', {
-		props:['todo'],
-		template: '<li>这是个待办项</li>'
-	});
-  </script>
+	</script>
 </body>
 </html>
 
