@@ -46,3 +46,4 @@ var e = "ssss";
 3. Spring+SpringMVC+mybatis+Quartz整合  http://blog.csdn.net/u012907049/article/details/70273080
 
 4. Vue.js 学习地址:https://cn.vuejs.org/v2/guide/
+5. vue-element-admin   https://github.com/PanJiaChen/vue-element-admin/blob/master/README.zh-CN.md
