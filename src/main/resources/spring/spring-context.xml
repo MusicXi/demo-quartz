@@ -32,5 +32,5 @@
 	<import resource="classpath:spring/spring-mybatis.xml"/>
 	
 	<!-- spring-quartz config -->
-	<!-- <import resource="classpath:spring/spring-quartz.xml"/> -->
+	<import resource="classpath:spring/spring-quartz.xml"/> 
 </beans> 
