@@ -27,15 +27,14 @@
 </head>
 <body>
   <div id="test">
-<!--     <el-button @click="visible = true">按钮</el-button>
-    <el-dialog :visible.sync="visible" title="Hello world">
-      <p>欢迎使用 Element</p>
-    </el-dialog> -->
+
     
     <div id="top">			
-			<span>	
+		<span>	
 				<el-button type="text" @click="add" style="color:white">添加</el-button>	
 				<el-button type="text" @click="deletenames" style="color:white">批量删除</el-button>		
+				<el-button type="text" @click="dialogdd" style="color:white">测试对话</el-button>	
+				<el-button type="text" @click="dialogFormVisible = false" style="color:white">取 消</el-button>	
 			</span>						
 		</div>	
 		
@@ -51,7 +50,8 @@
 		  </el-input>  		
 
 		  <el-table
-		    ref="testTable"		  
+		    ref="testTable"	
+		    v-loading="loading"	  
 		    :data="tableData"
 		    style="width:100%"
 		    border
@@ -116,7 +116,29 @@
 			  </el-pagination>
 		  </div>
 		</div> 
+		
+		  <el-dialog title="添加任务" :visible.sync="dialogFormVisible"  >
+		
+		  
+		    <el-form :model="form">
+		    <el-form-item label="活动名称" :label-width="formLabelWidth">
+		      <el-input v-model="form.name" auto-complete="off"></el-input>
+		    </el-form-item>
+		    <el-form-item label="活动区域" :label-width="formLabelWidth">
+		      <el-select v-model="form.region" placeholder="请选择活动区域">
+		        <el-option label="区域一" value="shanghai"></el-option>
+		        <el-option label="区域二" value="beijing"></el-option>
+		      </el-select>
+		    </el-form-item>
+		  </el-form>
+		 <div slot="footer" class="dialog-footer">
+		    <el-button @click="dialogFormVisible = false">取 消</el-button>
+		    <el-button type="primary" @click="dialogFormVisible = false">确 定</el-button>
+		  </div>
+		</el-dialog>
   </div>
+  
+
    <footer align="center">
         <p>&copy; Spring Boot Demo</p>
     </footer>
@@ -124,28 +146,34 @@
   <!-- 先引入 Vue -->
   <script src="https://unpkg.com/vue/dist/vue.js"></script>
   <!-- 引入组件库 -->
-  <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+<!--   <script src="https://unpkg.com/element-ui/lib/index.js"></script> -->
+  <script src="//unpkg.com/element-ui@2.0.9/lib/index.js"></script>
   
   <!-- vue-resource是vuejs的一个ajax插件，可以通过XMLHttpRequest或JSONP发起请求并处理响应 -->
-  <script src="https://cdn.bootcss.com/vue-resource/1.3.4/vue-resource.common.js"></script>
+  <script src="https://cdn.bootcss.com/vue-resource/1.3.4/vue-resource.js"></script>
 
 <!-- <script src="https://cdn.bootcss.com/jquery/2.2.4/jquery.js"></script> -->
   
   <script>
   
-/*    new Vue({
-      el: '#test',
-      data: function() {
-        return { visible: false }
-      }
-    })  */
-    
-
 	var vue = new Vue({			
 			el:"#test",
 		    data: {		  
 		    	//表格当前页数据
 		    	tableData: [],
+		    	loading: true,
+		    	dialogFormVisible: false,
+		    	form: {
+		            name: '',
+		            region: '',
+		            date1: '',
+		            date2: '',
+		            delivery: false,
+		            type: [],
+		            resource: '',
+		            desc: ''
+		          },
+		          formLabelWidth: '120px',
 		    	
 		    	//多选数组
 		        multipleSelection: [],
@@ -179,9 +207,11 @@
 		        //从服务器读取数据
 				loadData: function(criteria, pageNum, pageSize){	
 					debugger;
+
 					this.$http.post(this.url,{jobName:criteria, pageNum:pageNum, pageSize:pageSize},{emulateJSON: true}).then(function(res){
                 		this.tableData = res.data.studentdata;
                 		this.totalCount = res.data.number;
+                		this.loading = false;
                 	},function(){
                   		console.log('failed');
                 	});					
@@ -250,6 +280,11 @@
 		              
 		        },
 		        
+		        dialogdd: function() {
+		        	debugger;
+		        	this.dialogFormVisible = true;
+		        },
+		        
 		        //多项删除
 		        deletenames: function(){
 		        	if(this.multipleSelection.length==0)
@@ -294,8 +329,4 @@
     	  vue.loadData(vue.criteria, vue.currentPage, vue.pagesize);
 	</script>  
 
-  
-  
-  
-  
 </html>
