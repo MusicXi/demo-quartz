@@ -18,6 +18,9 @@ public class QrtzJobDetails implements Serializable{
 	private String requestsRecovery;	
 	private String jobData;	
 	
+	//非持久化属性
+	private String cronExpression;
+	
 	public QrtzJobDetails(){
 		super();
 	}
@@ -102,7 +105,14 @@ public class QrtzJobDetails implements Serializable{
         this.jobData = jobData;
     }
     
-	
+	public String getCronExpression() {
+		return StringUtils.isBlank(cronExpression) ? cronExpression : cronExpression.trim();
+	}
+
+	public void setCronExpression(String cronExpression) {
+		this.cronExpression = cronExpression;
+	}
+
 	@Override
 	public String toString() {
 		return "QrtzJobDetails ["

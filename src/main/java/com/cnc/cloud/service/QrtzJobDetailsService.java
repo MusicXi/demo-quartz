@@ -29,6 +29,8 @@ public interface QrtzJobDetailsService {
 	List<Map<String, Object>> findMapList(QrtzJobDetails qrtzJobDetails);
 	List<QrtzJobDetails> findList(QrtzJobDetails qrtzJobDetails);
 	
-
+	Map<String, Object> pauseJob(QrtzJobDetails qrtzJobDetails) throws Exception;
+	Map<String, Object> resumeJob(QrtzJobDetails qrtzJobDetails) throws Exception;
+	
 	
 }

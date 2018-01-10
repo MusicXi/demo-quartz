@@ -325,8 +325,8 @@
 		        
 		        //暂停任务
                 handlePause: function(index, row){
-                    this.$http.post('job/pausejob',{"jobClassName":row.job_NAME,"jobGroupName":row.job_GROUP},{emulateJSON: true}).then(function(res){
-                        this.loadData( this.currentPage, this.pagesize);
+                    this.$http.post(this.api.pause,{"jobName":row.jobName,"jobGroup":row.jobGroup},{emulateJSON: true}).then(function(res){
+                        this.loadData(this.criteria, this.currentPage, this.pagesize);
                     },function(){
                         console.log('failed');
                     });
@@ -334,8 +334,8 @@
 
                 //恢复任务
                 handleResume: function(index, row){
-                    this.$http.post('job/resumejob',{"jobClassName":row.job_NAME,"jobGroupName":row.job_GROUP},{emulateJSON: true}).then(function(res){
-                        this.loadData( this.currentPage, this.pagesize);
+                    this.$http.post(this.api.resume,{"jobName":row.jobName,"jobGroup":row.jobGroup},{emulateJSON: true}).then(function(res){
+                        this.loadData(this.criteria, this.currentPage, this.pagesize);
                     },function(){
                         console.log('failed');
                     });

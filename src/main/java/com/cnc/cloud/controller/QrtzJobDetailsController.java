@@ -61,4 +61,20 @@ public class QrtzJobDetailsController {
 		return map;
 	}
 	
+	@RequestMapping("/pause")
+	@ResponseBody
+	public Map<String, Object> pauseJob(QrtzJobDetails qrtzJobDetails, HttpServletRequest request) throws Exception{
+		Map<String, Object> map = new HashMap<>();
+		map = this.qrtzJobDetailsService.pauseJob(qrtzJobDetails);
+		return map;
+	}
+	
+	@RequestMapping("/resume")
+	@ResponseBody
+	public Map<String, Object> resumeJob(QrtzJobDetails qrtzJobDetails, HttpServletRequest request) throws Exception{
+		Map<String, Object> map = new HashMap<>();
+		map = this.qrtzJobDetailsService.resumeJob(qrtzJobDetails);
+		return map;
+	}
+	
 }

@@ -154,6 +154,22 @@ public class QrtzJobDetailsServiceImpl  implements QrtzJobDetailsService {
 		return this.qrtzJobDetailsDao.selectList(qrtzJobDetails);
 	}
 
+	@Override
+	public Map<String, Object> pauseJob(QrtzJobDetails qrtzJobDetails)
+			throws Exception {
+		scheduler.pauseJob(JobKey.jobKey(qrtzJobDetails.getJobName(), qrtzJobDetails.getJobGroup()));
+		LOGGER.info("pause job name:{} success", qrtzJobDetails.getJobName());
+		return null;
+	}
+
+	@Override
+	public Map<String, Object> resumeJob(QrtzJobDetails qrtzJobDetails)
+			throws Exception {
+		scheduler.resumeJob(JobKey.jobKey(qrtzJobDetails.getJobName(), qrtzJobDetails.getJobGroup()));
+		LOGGER.info("resume job name:{} success", qrtzJobDetails.getJobName());
+		return null;
+	}
+
 
 	
 
