@@ -39,10 +39,10 @@
     
     <div id="top">			
 		<span>	
-				<el-button type="text" @click="add" style="color:white">添加</el-button>	
+	
+				<el-button type="text" @click="handleadd" style="color:white">添加</el-button>	
 				<el-button type="text" @click="deletenames" style="color:white">批量删除</el-button>		
 				<el-button type="text" @click="dialogdd" style="color:white">测试对话</el-button>	
-				<el-button type="text" @click="dialogFormVisible = false" style="color:white">取 消</el-button>	
 			</span>						
 		</div>	
 		
@@ -165,6 +165,9 @@
             <el-form-item label="任务名称" label-width="120px" style="width:55%">
               <el-input v-model="form.jobName" auto-complete="off"></el-input>
             </el-form-item>     
+            <el-form-item label="任务描述" label-width="120px" style="width:55%">
+              <el-input v-model="form.description" auto-complete="off"></el-input>
+            </el-form-item>     
             <el-form-item label="任务分组" label-width="120px" style="width:55%">
               <el-input v-model="form.jobGroup" auto-complete="off"></el-input>
             </el-form-item>
@@ -214,6 +217,7 @@
                 form: {
                     jobName: '',
                     jobGroup: '',
+                    description: '',
                     cronExpression: '',
                 },
 
@@ -286,7 +290,13 @@
  
 		            }); */
 		            
-		            this.$http.post(this.api.add,{"jobClassName":this.form.jobName,"jobGroupName":this.form.jobGroup,"cronExpression":this.form.cronExpression},{emulateJSON: true}).then(function(res){
+		            this.$http.post(this.api.add,
+		            		{"jobName":this.form.jobName,
+		            		 "jobGroup":this.form.jobGroup,
+		            		 "cronExpression":this.form.cronExpression,
+		            		 "description":this.form.description
+		            		 },{emulateJSON: true})
+		            .then(function(res){
                         this.loadData(this.criteria, this.currentPage, this.pagesize);
                         this.dialogFormVisible = false;
                     },function(){
@@ -371,6 +381,10 @@
 			      	this.dialogFormVisible = true;
 		        },
 		        
+		      	//弹出对话框
+                handleadd: function(){                      
+                    this.dialogFormVisible = true;                
+                },
 				      
 		       
 		        

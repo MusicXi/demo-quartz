@@ -8,6 +8,7 @@ public class SimpleService {
     
     public String testMethod1(){  
         //这里执行定时调度业务  
+    	System.out.println("testMethod1.....执行1.....");
         return "testMethod1.....执行1.....";  
     }  
       

@@ -76,7 +76,7 @@ public class QrtzJobDetailsServiceImpl  implements QrtzJobDetailsService {
 		TriggerKey triggerKey = TriggerKey.triggerKey(triggerName, jobGroup);
         // 构建job的触发规则 cronExpression
 		Trigger trigger = TriggerBuilder.newTrigger().withIdentity(triggerKey).startNow()  
-        		.withSchedule(CronScheduleBuilder.cronSchedule("*/10 * * * * ?")).build();
+        		.withSchedule(CronScheduleBuilder.cronSchedule(qrtzJobDetails.getCronExpression())).build();
         scheduler.scheduleJob(job, trigger);  
 		
 //		resultMap.put("success", true);
