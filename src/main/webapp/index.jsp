@@ -7,8 +7,16 @@
 <title>欢迎使用 Element</title>
   <!-- 引入样式 -->
   <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
-<!-- <script src="common/js/jquery/jquery-2.1.4.js"></script> -->
+  <!-- 先引入 Vue -->
+  <script src="https://unpkg.com/vue/dist/vue.js"></script>
+  <!-- 引入组件库 -->
+  <!-- <script src="https://unpkg.com/element-ui/lib/index.js"></script> -->
+  <script src="//unpkg.com/element-ui@2.0.9/lib/index.js"></script>
+  
+  <!-- vue-resource是vuejs的一个ajax插件，可以通过XMLHttpRequest或JSONP发起请求并处理响应 -->
+  <script src="https://cdn.bootcss.com/vue-resource/1.3.4/vue-resource.js"></script>
 
+  <!-- <script src="https://cdn.bootcss.com/jquery/2.2.4/jquery.js"></script> -->
   <style>
       .el-select .el-input {
         width: 110px;
@@ -90,7 +98,32 @@
 		      sortable
 		      show-overflow-tooltip>
 		    </el-table-column>
-	        <el-table-column label="操作">
+		    
+		      <el-table-column
+              prop="triggerName"
+              label="触发器"
+              sortable>
+            </el-table-column>
+
+            <el-table-column
+              prop="triggerGroup"
+              label="触发器组"
+              sortable>
+            </el-table-column>
+
+            <el-table-column
+              prop="cronExpression"
+              label="表达式"
+              sortable>
+            </el-table-column>
+
+            <el-table-column
+              prop="timeZoneId"
+              label="时区"
+              sortable>
+            </el-table-column>
+		    
+	        <el-table-column label="操作" width="300">
 		      <template scope="scope">
 		        <el-button
 		          size="small"
@@ -100,6 +133,16 @@
 		          size="small"
 		          type="danger"
 		          @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+		          
+		          <el-button
+                  size="small"
+                  type="warning"
+                  @click="handlePause(scope.$index, scope.row)">暂停</el-button>
+
+                <el-button
+                  size="small"
+                  type="info"
+                  @click="handleResume(scope.$index, scope.row)">恢复</el-button>
 		      </template>
 		    </el-table-column>
 		  </el-table>
@@ -117,25 +160,35 @@
 		  </div>
 		</div> 
 		
-		  <el-dialog title="添加任务" :visible.sync="dialogFormVisible"  >
-		
-		  
-		    <el-form :model="form">
-		    <el-form-item label="活动名称" :label-width="formLabelWidth">
-		      <el-input v-model="form.description" auto-complete="off"></el-input>
-		    </el-form-item>
-<!-- 		    <el-form-item label="活动区域" :label-width="formLabelWidth">
-		      <el-select v-model="form.region" placeholder="请选择活动区域">
-		        <el-option label="区域一" value="shanghai"></el-option>
-		        <el-option label="区域二" value="beijing"></el-option>
-		      </el-select>
-		    </el-form-item> -->
-		  </el-form>
-		 <div slot="footer" class="dialog-footer">
-		    <el-button @click="dialogFormVisible = false">取 消</el-button>
-		    <el-button type="primary" @click="dialogFormVisible = false">确 定</el-button>
-		  </div>
-		</el-dialog>
+		<el-dialog title="添加任务" :visible.syn="dialogFormVisible">
+          <el-form :model="form">
+            <el-form-item label="任务名称" label-width="120px" style="width:55%">
+              <el-input v-model="form.jobName" auto-complete="off"></el-input>
+            </el-form-item>     
+            <el-form-item label="任务分组" label-width="120px" style="width:55%">
+              <el-input v-model="form.jobGroup" auto-complete="off"></el-input>
+            </el-form-item>
+            <el-form-item label="表达式" label-width="120px" style="width:55%">
+              <el-input v-model="form.cronExpression" auto-complete="off"></el-input>
+            </el-form-item>
+          </el-form>
+          <div slot="footer" class="dialog-footer">
+            <el-button @click="dialogFormVisible = false">取 消</el-button>
+            <el-button type="primary" @click="add">确 定</el-button>
+          </div>
+        </el-dialog>
+
+        <el-dialog title="修改任务" :visible.syn="updateFormVisible">
+          <el-form :model="updateform">
+            <el-form-item label="表达式" label-width="120px" style="width:55%">
+              <el-input v-model="updateform.cronExpression" auto-complete="off"></el-input>
+            </el-form-item>
+          </el-form>
+          <div slot="footer" class="dialog-footer">
+            <el-button @click="updateFormVisible = false">取 消</el-button>
+            <el-button type="primary" @click="update">确 定</el-button>
+          </div>
+        </el-dialog>
   </div>
   
 
@@ -143,16 +196,7 @@
         <p>&copy; Spring Boot Demo</p>
     </footer>
 </body>
-  <!-- 先引入 Vue -->
-  <script src="https://unpkg.com/vue/dist/vue.js"></script>
-  <!-- 引入组件库 -->
-<!--   <script src="https://unpkg.com/element-ui/lib/index.js"></script> -->
-  <script src="//unpkg.com/element-ui@2.0.9/lib/index.js"></script>
-  
-  <!-- vue-resource是vuejs的一个ajax插件，可以通过XMLHttpRequest或JSONP发起请求并处理响应 -->
-  <script src="https://cdn.bootcss.com/vue-resource/1.3.4/vue-resource.js"></script>
 
-<!-- <script src="https://cdn.bootcss.com/jquery/2.2.4/jquery.js"></script> -->
   
   <script>
   
@@ -162,24 +206,35 @@
 		    	//表格当前页数据
 		    	tableData: [],
 		    	loading: true,
-		    	dialogFormVisible: false,
-		    	form: {
-		    		description: '',
-		/*             region: '',
-		            date1: '',
-		            date2: '',
-		            delivery: false,
-		            type: [],
-		            resource: '',
-		            desc: '' */
-		          },
-		          formLabelWidth: '120px',
-		    	
+		    	 //添加对话框默认可见性
+                dialogFormVisible: false,
+                //修改对话框默认可见性
+                updateFormVisible: false,
+                //提交的表单
+                form: {
+                    jobName: '',
+                    jobGroup: '',
+                    cronExpression: '',
+                },
+
+                updateform: {
+                    jobName: '',
+                    jobGroup: '',
+                    cronExpression: '',
+                },
+		        formLabelWidth: '120px',
 		    	//多选数组
 		        multipleSelection: [],
 		        
 		        //请求的URL
-		        url:'qrtzJobDetails/listByPage',
+		        api: {
+		        	search : 'qrtzJobDetails/listByPage',
+		        	add : 'qrtzJobDetails/add',
+		        	edit : 'qrtzJobDetails/edit',
+		        	delete : 'qrtzJobDetails/delete',
+		        	pause : 'qrtzJobDetails/pause',
+		        	resume : 'qrtzJobDetails/resume'
+		        },
 		        
 		        //搜索条件
 		        criteria: '',
@@ -200,15 +255,13 @@
 		        start: 1,
 		        
 		        //默认数据总数
-		        totalCount: 1000,
+		        //totalCount: 1000,
 		    },
 		    methods: {
 		    	
 		        //从服务器读取数据
 				loadData: function(criteria, pageNum, pageSize){	
-					debugger;
-
-					this.$http.post(this.url,{jobName:criteria, pageNum:pageNum, pageSize:pageSize},{emulateJSON: true}).then(function(res){
+					this.$http.post(this.api.search,{jobName:criteria, pageNum:pageNum, pageSize:pageSize},{emulateJSON: true}).then(function(res){
                 		this.tableData = res.data.studentdata;
                 		this.totalCount = res.data.number;
                 		this.loading = false;
@@ -216,6 +269,77 @@
                   		console.log('failed');
                 	});					
 				},
+				  //添加
+		        add: function(){
+		            /*     this.$prompt('请输入名称', '提示', {
+		                  confirmButtonText: '确定',
+		                  cancelButtonText: '取消',
+		                }).then(({ value }) => {
+		                	if(value==''||value==null)
+		        				return;
+		        			this.$http.post('../add',{"name":value},{emulateJSON: true}).then(function(res){
+		        				this.loadData(this.criteria, this.currentPage, this.pagesize);
+		                    },function(){
+		                        console.log('failed');
+		                    });
+		                }).catch(() => {
+ 
+		            }); */
+		            
+		            this.$http.post(this.api.add,{"jobClassName":this.form.jobName,"jobGroupName":this.form.jobGroup,"cronExpression":this.form.cronExpression},{emulateJSON: true}).then(function(res){
+                        this.loadData(this.criteria, this.currentPage, this.pagesize);
+                        this.dialogFormVisible = false;
+                    },function(){
+                        console.log('failed');
+                    });
+		              
+		        },
+		        
+		        //更新任务
+                update: function(){
+                    this.$http.post
+                    ('job/reschedulejob',
+                            {"jobClassName":this.updateform.jobName,
+                             "jobGroupName":this.updateform.jobGroup,
+                             "cronExpression":this.updateform.cronExpression
+                             },{emulateJSON: true}
+                    ).then(function(res){
+                        this.loadData(this.currentPage, this.pagesize);
+                        this.updateFormVisible = false;
+                    },function(){
+                        console.log('failed');
+                    });
+
+                },
+				
+				 //单行删除
+			    handleDelete: function(index, row) {
+			        var array = [];
+		        	array.push(row.id);
+					this.$http.post('../delete',{"array":array},{emulateJSON: true}).then(function(res){
+						this.loadData(this.criteria, this.currentPage, this.pagesize);
+		            },function(){
+		                console.log('failed');
+		            });
+		        },
+		        
+		        //暂停任务
+                handlePause: function(index, row){
+                    this.$http.post('job/pausejob',{"jobClassName":row.job_NAME,"jobGroupName":row.job_GROUP},{emulateJSON: true}).then(function(res){
+                        this.loadData( this.currentPage, this.pagesize);
+                    },function(){
+                        console.log('failed');
+                    });
+                },
+
+                //恢复任务
+                handleResume: function(index, row){
+                    this.$http.post('job/resumejob',{"jobClassName":row.job_NAME,"jobGroupName":row.job_GROUP},{emulateJSON: true}).then(function(res){
+                        this.loadData( this.currentPage, this.pagesize);
+                    },function(){
+                        console.log('failed');
+                    });
+                },
 		    	
 				//多选响应
 			    handleSelectionChange: function(val) {
@@ -242,46 +366,20 @@
 		                    });
 		                }).catch(() => {
 		            }); */
+		            console.log(row);
 			    	this.form = row;
 			      	this.dialogFormVisible = true;
 		        },
 		        
 				      
-		        //单行删除
-			    handleDelete: function(index, row) {
-			        var array = [];
-		        	array.push(row.id);
-					this.$http.post('../delete',{"array":array},{emulateJSON: true}).then(function(res){
-						this.loadData(this.criteria, this.currentPage, this.pagesize);
-		            },function(){
-		                console.log('failed');
-		            });
-		        },
+		       
 		        
 		        //搜索
 		        search: function(){
 		        	this.loadData(this.criteria, this.currentPage, this.pagesize);
 		        },
 		        
-		        //添加
-		        add: function(){
-		                this.$prompt('请输入名称', '提示', {
-		                  confirmButtonText: '确定',
-		                  cancelButtonText: '取消',
-		                }).then(({ value }) => {
-		                	if(value==''||value==null)
-		        				return;
-		        			this.$http.post('../add',{"name":value},{emulateJSON: true}).then(function(res){
-		        				this.loadData(this.criteria, this.currentPage, this.pagesize);
-		                    },function(){
-		                        console.log('failed');
-		                    });
-		                }).catch(() => {
- 
-		            });
-		              
-		        },
-		        
+		      
 		        dialogdd: function() {
 		        	debugger;
 		        	this.dialogFormVisible = true;

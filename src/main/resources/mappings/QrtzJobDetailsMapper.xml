@@ -27,6 +27,11 @@
 		<result column="IS_UPDATE_DATA" property="isUpdateData" jdbcType="VARCHAR" />
 		<result column="REQUESTS_RECOVERY" property="requestsRecovery" jdbcType="VARCHAR" />
 		<result column="JOB_DATA" property="jobData" jdbcType="VARCHAR" />
+		<result column="TRIGGER_NAME" property="triggerName" jdbcType="VARCHAR" />
+		<result column="TRIGGER_GROUP" property="triggerGroup" jdbcType="VARCHAR" />
+		<result column="CRON_EXPRESSION" property="cronExpression" jdbcType="VARCHAR" />
+		<result column="TIME_ZONE_ID" property="timeZoneId" jdbcType="VARCHAR" />
+		
 	</resultMap>	
 	
 	<sql id="Base_Column_List" >
@@ -93,8 +98,14 @@
   	
   	<select id="selectMapList" resultMap="DataResultMap">
   		select 
-	    <include refid="Base_Column_List" />
+	    <include refid="Base_Column_List" />,
+	    b.TRIGGER_NAME,
+	    b.TRIGGER_GROUP,
+	    b.CRON_EXPRESSION,
+	    b.TIME_ZONE_ID
 	    from qrtz_job_details t
+	    join qrtz_triggers a on t.SCHED_NAME = a.SCHED_NAME and t.JOB_NAME = a.JOB_NAME and t.JOB_GROUP = a.JOB_GROUP
+	    join qrtz_cron_triggers b on a.SCHED_NAME = b.SCHED_NAME and a.TRIGGER_NAME = b.TRIGGER_NAME and a.TRIGGER_GROUP = b.TRIGGER_GROUP
 	    <where>
 	    	<if test="schedName != null and schedName !='' ">
 	    	 	and t.SCHED_NAME =#{schedName}

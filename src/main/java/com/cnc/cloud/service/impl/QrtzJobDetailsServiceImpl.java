@@ -26,30 +26,33 @@ import com.cnc.cloud.bean.QrtzJobDetails;
 import com.cnc.cloud.dao.QrtzJobDetailsDao;
 import com.cnc.cloud.quartz.cluster.job.DynamicQuartzJob;
 import com.cnc.cloud.service.QrtzJobDetailsService;
+import com.cnc.cloud.util.QuartzUtil;
 
 
 @Service("qrtzJobDetailsService")
 @Transactional(rollbackFor=Exception.class)
 public class QrtzJobDetailsServiceImpl  implements QrtzJobDetailsService {
 	private static final Logger LOGGER=LoggerFactory.getLogger(QrtzJobDetailsServiceImpl.class);
+	
 	/** jobName 前缀*/
 	private static final String JOB_NAME_PREFIX = "jobName.";
 	/** triggerName 前缀*/
 	private static final String TRIGGER_NAME_PREFIX = "triggerName.";
-	/** 默认组 */
+	/** jobName/triggerName 默认组 */
 	private static final String GROUP_DEFAULT = "DEFAULT";
+	
 	@Autowired
 	private QrtzJobDetailsDao qrtzJobDetailsDao;
-	
 	@Autowired
 	private SchedulerFactoryBean schedulerFactoryBean;
-	
 	@Autowired
 	private Scheduler scheduler; 
 	
 	@Override
 	public Map<String, Object> createQrtzJobDetails(QrtzJobDetails qrtzJobDetails) throws Exception{
 		Map<String, Object> resultMap = new HashMap<>();
+		
+		// 非空校验
 		if (qrtzJobDetails == null) {
 			throw new Exception("qrtzJobDetails 为空");
 		}
@@ -57,18 +60,22 @@ public class QrtzJobDetailsServiceImpl  implements QrtzJobDetailsService {
 		if (StringUtils.isBlank(qrtzJobDetails.getDescription())) {
 			throw new Exception("qrtzJobDetails serviceInfo 为空");
 		}
+		// TODO 定时服务有效性校验 (校验是否存在对应的servcie.method )
 		String description = qrtzJobDetails.getDescription();
 		String jobName = JOB_NAME_PREFIX + description;
 		String triggerName = TRIGGER_NAME_PREFIX + description;
 		String jobGroup = StringUtils.isBlank(qrtzJobDetails.getJobGroup())? GROUP_DEFAULT : qrtzJobDetails.getJobGroup();
 		
+		// 唯一性校验
 		JobKey jobKey = JobKey.jobKey(jobName, jobGroup);
 		if (scheduler.checkExists(jobKey)) {
 			throw new Exception("jobKey 存在!");
 		}
+		// 构建job信息
 		JobDetail job = JobBuilder.newJob(DynamicQuartzJob.class).withIdentity(jobKey).withDescription(description).build();  			
 		TriggerKey triggerKey = TriggerKey.triggerKey(triggerName, jobGroup);
-        Trigger trigger = TriggerBuilder.newTrigger().withIdentity(triggerKey).startNow()  
+        // 构建job的触发规则 cronExpression
+		Trigger trigger = TriggerBuilder.newTrigger().withIdentity(triggerKey).startNow()  
         		.withSchedule(CronScheduleBuilder.cronSchedule("*/10 * * * * ?")).build();
         scheduler.scheduleJob(job, trigger);  
 		
@@ -81,7 +88,7 @@ public class QrtzJobDetailsServiceImpl  implements QrtzJobDetailsService {
 	@Override
 	public Map<String, Object> createQrtzJobDetails(List<QrtzJobDetails> qrtzJobDetailsList) throws Exception{
 		Map<String, Object> resultMap = new HashMap<>();
-
+		// TODO 暂未实现批量创建定时任务
 		return resultMap;
 
 	}
@@ -104,7 +111,9 @@ public class QrtzJobDetailsServiceImpl  implements QrtzJobDetailsService {
 	@Override
 	public Map<String, Object> deleteQrtzJobDetails(QrtzJobDetails qrtzJobDetails) throws Exception {
 		Map<String, Object> resultMap = new HashMap<>();
-
+		JobKey jobKey = JobKey.jobKey(qrtzJobDetails.getJobName(), qrtzJobDetails.getJobGroup());
+		QuartzUtil.deleteJob(scheduler, jobKey);
+		LOGGER.info("delete job name:{} success", qrtzJobDetails.getJobName());
 		return resultMap;
 	}
 	
@@ -146,6 +155,7 @@ public class QrtzJobDetailsServiceImpl  implements QrtzJobDetailsService {
 	}
 
 
+	
 
 
 
