@@ -53,7 +53,7 @@
 		
 		<!-- quartz -->
 		<quartz.version>2.2.1</quartz.version>
-		
+		<springfox-swagger.version>2.7.0</springfox-swagger.version>
 		<commons-lang3.version>3.3.2</commons-lang3.version>
 		
 	
@@ -281,13 +281,13 @@
 		<dependency>
 		    <groupId>io.springfox</groupId>
 		    <artifactId>springfox-swagger2</artifactId>
-		    <version>2.7.0</version>
+		    <version>${springfox-swagger.version}</version>
 		</dependency>
 		<!--springfox-ui的jar包(里面包含了swagger的界面静态文件)-->
 		<dependency>
 		    <groupId>io.springfox</groupId>
 		    <artifactId>springfox-swagger-ui</artifactId>
-		    <version>2.7.0</version>
+		    <version>${springfox-swagger.version}</version>
 		</dependency>
 		<!--springfox依赖的jar包；如果你的项目中已经集成了无需重复
 		<dependency>
