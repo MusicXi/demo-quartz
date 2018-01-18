@@ -69,6 +69,8 @@
 					<target>1.7</target>
 				</configuration>
 			</plugin>
+			<!-- tomcat7:run -->
+			<!-- -Xms512M -Xmx1024M -XX:PermSize=128M -XX:MaxPermSize=512M -->
 			<plugin>
 				<groupId>org.apache.tomcat.maven</groupId>
 				<artifactId>tomcat7-maven-plugin</artifactId>
