@@ -224,6 +224,7 @@
                 updateform: {
                     jobName: '',
                     jobGroup: '',
+                    description: '',
                     cronExpression: '',
                 },
 		        formLabelWidth: '120px',
@@ -259,7 +260,7 @@
 		        start: 1,
 		        
 		        //默认数据总数
-		        //totalCount: 1000,
+		        totalCount: 100,
 		    },
 		    methods: {
 		    	
@@ -308,9 +309,9 @@
 		        //更新任务
                 update: function(){
                     this.$http.post
-                    ('job/reschedulejob',
-                            {"jobClassName":this.updateform.jobName,
-                             "jobGroupName":this.updateform.jobGroup,
+                    (this.api.edit,
+                            {"jobName":this.updateform.jobName,
+                             "jobGroup":this.updateform.jobGroup,
                              "cronExpression":this.updateform.cronExpression
                              },{emulateJSON: true}
                     ).then(function(res){
@@ -326,7 +327,7 @@
 			    handleDelete: function(index, row) {
 			        var array = [];
 		        	array.push(row.id);
-					this.$http.post('../delete',{"array":array},{emulateJSON: true}).then(function(res){
+					this.$http.post(this.api.delete,{"jobName":row.jobName,"jobGroup":row.jobGroup},{emulateJSON: true}).then(function(res){
 						this.loadData(this.criteria, this.currentPage, this.pagesize);
 		            },function(){
 		                console.log('failed');
@@ -377,12 +378,13 @@
 		                }).catch(() => {
 		            }); */
 		            console.log(row);
-			    	this.form = row;
-			      	this.dialogFormVisible = true;
+			    	this.updateform = row;
+			      	this.updateFormVisible = true;
 		        },
 		        
 		      	//弹出对话框
-                handleadd: function(){                      
+                handleadd: function(){    
+        
                     this.dialogFormVisible = true;                
                 },
 				      
