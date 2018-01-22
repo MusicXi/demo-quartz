@@ -8,21 +8,21 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-
-
-
 //import org.slf4j.Logger;
 //import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cnc.cloud.bean.QrtzJobDetails;
 import com.cnc.cloud.service.QrtzJobDetailsService;
 import com.github.pagehelper.Page;
 
-
+@CrossOrigin(origins={"http://localhost:8080"}, methods={RequestMethod.GET, RequestMethod.POST})
+//@CrossOrigin(origins={"*"}, methods={RequestMethod.GET, RequestMethod.POST})
 @Api(value = "/qrtzJobDetails", tags = "定时任务操作接口")
 @Controller
 @RequestMapping("/qrtzJobDetails")
@@ -32,6 +32,7 @@ public class QrtzJobDetailsController {
 	@Autowired
 	private QrtzJobDetailsService qrtzJobDetailsService;
 	
+
 	@ApiOperation(value = "查询定时任务", notes = "根据id获取用户信息", httpMethod = "POST", response = QrtzJobDetails.class)
 	@RequestMapping("/listByPage")
 	@ResponseBody
