@@ -96,7 +96,21 @@ public class QrtzJobDetailsServiceImpl  implements QrtzJobDetailsService {
 	@Override
 	public Map<String, Object> updateQrtzJobDetails(QrtzJobDetails qrtzJobDetails) throws Exception {
 		Map<String, Object> resultMap = new HashMap<>();
-
+		JobKey jobKey = JobKey.jobKey(qrtzJobDetails.getJobName(), qrtzJobDetails.getJobGroup());
+		TriggerKey triggerKey = null;
+		List<? extends Trigger> list = scheduler.getTriggersOfJob(jobKey);
+		if (list == null || list.size() != 1) {
+			return resultMap;
+		}
+		for (Trigger trigger : list) {
+			//暂停触发器
+			scheduler.pauseTrigger(trigger.getKey());
+			triggerKey = trigger.getKey();
+		}
+		Trigger newTrigger = TriggerBuilder.newTrigger().withIdentity(triggerKey).startNow()  
+              .withSchedule(CronScheduleBuilder.cronSchedule(qrtzJobDetails.getCronExpression())).build();
+		scheduler.rescheduleJob(newTrigger.getKey(), newTrigger);
+		LOGGER.info("update job name:{} success", qrtzJobDetails.getJobName());
 		return resultMap;
 	}
 	
