@@ -21,8 +21,8 @@ import com.cnc.cloud.bean.QrtzJobDetails;
 import com.cnc.cloud.service.QrtzJobDetailsService;
 import com.github.pagehelper.Page;
 
-@CrossOrigin(origins={"http://localhost:8080"}, methods={RequestMethod.GET, RequestMethod.POST})
-//@CrossOrigin(origins={"*"}, methods={RequestMethod.GET, RequestMethod.POST})
+//@CrossOrigin(origins={"http://localhost:8080"}, methods={RequestMethod.GET, RequestMethod.POST})
+@CrossOrigin(origins={"*"}, methods={RequestMethod.GET, RequestMethod.POST})
 @Api(value = "/qrtzJobDetails", tags = "定时任务操作接口")
 @Controller
 @RequestMapping("/qrtzJobDetails")

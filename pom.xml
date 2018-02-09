@@ -159,6 +159,13 @@
 			<artifactId>jstl</artifactId>
 			<version>${jstl.version}</version>
 		</dependency>
+		
+		<!-- 跨域 -->
+		<dependency>
+		    <groupId>com.thetransactioncompany</groupId>
+		    <artifactId>cors-filter</artifactId>
+		    <version>2.5</version>
+		</dependency> 
 	
 		<!-- aop for Spring AOP -->
 		<dependency>

@@ -11,7 +11,7 @@
   <script src="https://unpkg.com/vue/dist/vue.js"></script>
   <!-- 引入组件库 -->
   <!-- <script src="https://unpkg.com/element-ui/lib/index.js"></script> -->
-  <script src="//unpkg.com/element-ui@2.0.9/lib/index.js"></script>
+  <script src="https://unpkg.com/element-ui@2.0.9/lib/index.js"></script>
   
   <!-- vue-resource是vuejs的一个ajax插件，可以通过XMLHttpRequest或JSONP发起请求并处理响应 -->
   <script src="https://cdn.bootcss.com/vue-resource/1.3.4/vue-resource.js"></script>
@@ -315,7 +315,7 @@
                              "cronExpression":this.updateform.cronExpression
                              },{emulateJSON: true}
                     ).then(function(res){
-                        this.loadData(this.currentPage, this.pagesize);
+                        this.loadData(this.criteria, this.currentPage, this.pagesize);
                         this.updateFormVisible = false;
                     },function(){
                         console.log('failed');
