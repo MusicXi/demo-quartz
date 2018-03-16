@@ -1,8 +1,8 @@
-# quartz集群 
+# 基于quartz集群分布式定时任务管理 
 
-### 说明内容
-https://github.com/MusicXi/demo-quartz.git
-待实现功能：
+> https://github.com/MusicXi/demo-quartz.git
+
+#### 实现功能：
 1 动态为服务接口的某个方法添加定时任务
 2 
 #### 1.quartz 集群如何工作
