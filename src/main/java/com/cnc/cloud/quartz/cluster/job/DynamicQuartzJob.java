@@ -4,11 +4,11 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 import org.quartz.DisallowConcurrentExecution;
-import org.quartz.JobDetail;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 import org.quartz.PersistJobDataAfterExecution;
 import org.quartz.SchedulerException;
+import org.quartz.impl.JobDetailImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
@@ -29,15 +29,16 @@ public class DynamicQuartzJob extends QuartzJobBean {
   
     @Override  
     protected void executeInternal(JobExecutionContext jobexecutioncontext) throws JobExecutionException {  
-  
-		JobDetail jobDetail = jobexecutioncontext.getJobDetail();
-		String description = jobDetail.getDescription();
-		if (StringUtils.isEmpty(description)) {
+    	// use JobDetailImpl replace JobDetail for get jobName
+    	JobDetailImpl jobDetail = (JobDetailImpl) jobexecutioncontext.getJobDetail();
+		String name = jobDetail.getName();
+		if (StringUtils.isEmpty(name)) {
 			throw new JobExecutionException("can not find service info, because desription is empty");
 		}
-		String[] serviceInfo = description.split("\\.");
-		String beanName = serviceInfo[0];
-		String methodName = serviceInfo[1];
+		String[] serviceInfo = name.split("\\.");
+		// serviceInfo[0] is JOB_NAME_PREFIX 
+		String beanName = serviceInfo[1];
+		String methodName = serviceInfo[2];
 		Object serviceImpl = getApplicationContext(jobexecutioncontext).getBean(beanName);
 		Method method;
 		try {

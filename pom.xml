@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.myron.demo</groupId>
 	<artifactId>demo-quartz</artifactId>
-	<version>1.0.0</version>
+	<version>1.1.0-dev</version>
 	<packaging>war</packaging>
 
 	<!-- 指定maven仓库 (MAVEN_HOME/conf/settings.xml 已配可省) -->
