@@ -16,17 +16,19 @@ import org.quartz.TriggerKey;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.quartz.SchedulerFactoryBean;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.scheduling.quartz.SchedulerFactoryBean;
 
-import com.github.pagehelper.Page;
-import com.github.pagehelper.PageHelper;
 import com.cnc.cloud.bean.QrtzJobDetails;
 import com.cnc.cloud.dao.QrtzJobDetailsDao;
+import com.cnc.cloud.exception.DynamicQuartzException;
 import com.cnc.cloud.quartz.cluster.job.DynamicQuartzJob;
 import com.cnc.cloud.service.QrtzJobDetailsService;
 import com.cnc.cloud.util.QuartzUtil;
+import com.cnc.cloud.util.SpringContextHolder;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 
 
 @Service("qrtzJobDetailsService")
@@ -57,13 +59,13 @@ public class QrtzJobDetailsServiceImpl  implements QrtzJobDetailsService {
 			throw new Exception("qrtzJobDetails 为空");
 		}
 		
-		if (StringUtils.isBlank(qrtzJobDetails.getDescription())) {
+		if (StringUtils.isBlank(qrtzJobDetails.getJobName())) {
 			throw new Exception("qrtzJobDetails serviceInfo 为空");
 		}
-		// TODO 定时服务有效性校验 (校验是否存在对应的servcie.method )
-		String description = qrtzJobDetails.getDescription();
-		String jobName = JOB_NAME_PREFIX + description;
-		String triggerName = TRIGGER_NAME_PREFIX + description;
+		// 定时服务有效性校验 (校验是否存在对应的servcie.method )
+		checkServiceAndMethod(qrtzJobDetails.getJobName());
+		String jobName = JOB_NAME_PREFIX + qrtzJobDetails.getJobName();
+		String triggerName = TRIGGER_NAME_PREFIX + qrtzJobDetails.getJobName();
 		String jobGroup = StringUtils.isBlank(qrtzJobDetails.getJobGroup())? GROUP_DEFAULT : qrtzJobDetails.getJobGroup();
 		
 		// 唯一性校验
@@ -72,7 +74,7 @@ public class QrtzJobDetailsServiceImpl  implements QrtzJobDetailsService {
 			throw new Exception("jobKey 存在!");
 		}
 		// 构建job信息
-		JobDetail job = JobBuilder.newJob(DynamicQuartzJob.class).withIdentity(jobKey).withDescription(description).build();  			
+		JobDetail job = JobBuilder.newJob(DynamicQuartzJob.class).withIdentity(jobKey).withDescription(qrtzJobDetails.getDescription()).build();  			
 		TriggerKey triggerKey = TriggerKey.triggerKey(triggerName, jobGroup);
         // 构建job的触发规则 cronExpression
 		Trigger trigger = TriggerBuilder.newTrigger().withIdentity(triggerKey).startNow()  
@@ -185,6 +187,24 @@ public class QrtzJobDetailsServiceImpl  implements QrtzJobDetailsService {
 	}
 
 
+	/**
+	 * 校验服务和方法是否存在
+	 * @param jobName
+	 * @throws DynamicQuartzException
+	 */
+	private void checkServiceAndMethod(String jobName) throws DynamicQuartzException {
+		String[] serviceInfo = jobName.split("\\.");
+		String beanName = serviceInfo[0];
+		String methodName = serviceInfo[1];
+		if (! SpringContextHolder.existBean(beanName)) {
+			throw new DynamicQuartzException("找不到对应服务");
+		}
+		if (! SpringContextHolder.existBeanAndMethod(beanName, methodName, null)) {
+			throw new DynamicQuartzException("服务方法不存在");
+		}
+		
+
+	}
 	
 
 
