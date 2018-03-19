@@ -71,7 +71,7 @@ public class QrtzJobDetailsServiceImpl  implements QrtzJobDetailsService {
 		// 唯一性校验
 		JobKey jobKey = JobKey.jobKey(jobName, jobGroup);
 		if (scheduler.checkExists(jobKey)) {
-			throw new Exception("jobKey 存在!");
+			throw new DynamicQuartzException("jobKey 存在!");
 		}
 		// 构建job信息
 		JobDetail job = JobBuilder.newJob(DynamicQuartzJob.class).withIdentity(jobKey).withDescription(qrtzJobDetails.getDescription()).build();  			
@@ -188,7 +188,7 @@ public class QrtzJobDetailsServiceImpl  implements QrtzJobDetailsService {
 
 
 	/**
-	 * 校验服务和方法是否存在
+	 * <li>校验服务和方法是否存在</li>
 	 * @param jobName
 	 * @throws DynamicQuartzException
 	 */
