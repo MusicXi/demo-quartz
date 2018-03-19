@@ -27,8 +27,10 @@ Quartz 应用是通过数据库表来感知到另一应用的
 
 
 #### 3.问题：
-1.修改定时任务配置,怎么生效?
-2.怎么标识是那台机器的实例?
+1. 修改定时任务配置,怎么生效?
+- 使用quartz相关api
+2. 怎么标识是那台机器的实例?
+- qrtz_scheduler_state 保存服务器实例标识
 
 ### 集群环境下开发注意
 1.修改Job的类名称及包路径时 QuartzJobBean,需要修改qrtz_job_details.JOB_CLASS_NAME 对应名称. 或者初始化qrtz库表。
