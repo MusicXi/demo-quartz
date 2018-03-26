@@ -298,9 +298,14 @@
 		            		 "description":this.form.description
 		            		 },{emulateJSON: true})
 		            .then(function(res){
+		                var data = res.body;
+		                if (!data.success) {
+                            this.$alert(data.msg, '提示');
+						}
                         this.loadData(this.criteria, this.currentPage, this.pagesize);
                         this.dialogFormVisible = false;
                     },function(){
+
                         console.log('failed');
                     });
 		              
