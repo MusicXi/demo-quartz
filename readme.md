@@ -1,7 +1,22 @@
-# 基于quartz集群分布式定时任务管理 
+# 基于quartz集群分布式动态定时任务管理 
 
 > https://github.com/MusicXi/demo-quartz.git
+
+- 不多说，先看效果
 ![Alt text](https://github.com/MusicXi/demo-quartz/raw/master/doc/images/demo_show.png)
+
+- 添加定时任务
+![Alt text](https://github.com/MusicXi/demo-quartz/raw/master/doc/images/task_add.png)
+
+#### 特点：
+1. 基于quartz集群,轻量扩展。可快速改造现有项目
+2. 完全动态管理,可自定义任何XxxService.xxx()服务方法为定时任务,简化定时任务开发配置过程
+
+#### 技术选型
+- quartz.version 2.2.1
+- spring.version 4.2.6.RELEASE
+- mybatis.version 3.3.0
+
 #### 当前版本 1.1.0:
 1. 定时任务添加服务校验,必须存在服务及对应方法
 2. 实现事务不符合校验无法添加任务
@@ -11,9 +26,7 @@
 2. 可用性:集群可用情况下,单个实例的存活,不影响整体定时任务的执行(quartz集群本身功能)
 3. 灵活性:动态管理定时任务(动态创建修改删除定时任务)
 
-#### 特点：
-1. 基于quartz集群,轻量扩展。可快速改造现有项目
-2. 完全动态管理,配置定时任务无任何额外开发工作,可自定义任何XxxService.xxx()服务方法为定时任务
+
 
 #### 1.quartz 集群如何工作
 > 一个 Quartz 集群中的每个节点是一个独立的 Quartz 应用，它又管理着其他的节点。也就是你必须对每个节点分别启动或停止。
@@ -53,6 +66,5 @@ Quartz 应用是通过数据库表来感知到另一应用的
 1. Quartz在Spring中集群  http://sundoctor.iteye.com/blog/486055?page=2
 2. Spring Boot集成持久化Quartz定时任务管理和界面展示 http://blog.csdn.net/u012907049/article/details/73801122
 3. Spring+SpringMVC+mybatis+Quartz整合  http://blog.csdn.net/u012907049/article/details/70273080
-
 4. Vue.js 学习地址:https://cn.vuejs.org/v2/guide/
 5. vue-element-admin   https://github.com/PanJiaChen/vue-element-admin/blob/master/README.zh-CN.md
