@@ -7,6 +7,7 @@
 
 - 添加定时任务
 ![Alt text](https://github.com/MusicXi/demo-quartz/raw/master/doc/images/task_add.png)
+
 - 编辑定时任务-需改时间
 ![Alt text](https://github.com/MusicXi/demo-quartz/raw/master/doc/images/task_edit.png)
 
@@ -23,15 +24,19 @@
 - quartz.version 2.2.1
 - spring.version 4.2.6.RELEASE
 - mybatis.version 3.3.0
+- pagehelper.version 5.0.0
 
 #### 当前demo版本 1.1.0 添加功能:
 1. 定时任务添加服务校验,必须存在服务及对应方法
-2. 实现事务不符合校验无法添加任务
+2. 事务支持 不符合校验无法添加任务
 
 #### 快速启动
 1. 在quartz连接的数据库执行sql文件的 分布式定时任务初始化建表.sql的内容。
 2. 访问http://localhost:8082/ (端口号自己定义)
-3. 添加服务方法及定时周期 (测试，启/停/修改定时任务)
+3. 添加服务方法及定时周期 测试，启/停/修改定时任务(也可以添加任意自己开发服务，动态生成定时任务)
+- helloSerice.sayHello    */5 * * * * ?
+- simpleService.testMethod1   */15 * * * * ?
+- simpleService.testMethod2   */35 * * * * ?
 
 
 

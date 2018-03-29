@@ -82,7 +82,7 @@
 		    </el-table-column>
 		    <el-table-column
 		      prop="jobName"
-		      label="任务名"
+		      label="任务名" width="260"
 		      sortable
 		      show-overflow-tooltip>
 		    </el-table-column>
@@ -97,7 +97,7 @@
 		      label="任务描述"
 		      sortable>
 		    </el-table-column>
-		    <el-table-column
+		    <%--<el-table-column
 		      prop="jobClassName"
 		      label="任务类名"
 		      sortable
@@ -115,19 +115,25 @@
               label="触发器组"
               sortable>
             </el-table-column>
-
+--%>
             <el-table-column
               prop="cronExpression"
               label="表达式"
               sortable>
             </el-table-column>
 
-            <el-table-column
+      <%--      <el-table-column
               prop="timeZoneId"
               label="时区"
               sortable>
+            </el-table-column>--%>
+
+            <el-table-column
+              prop="triggerState"
+              label="状态"
+              sortable>
             </el-table-column>
-		    
+
 	        <el-table-column label="操作" width="300">
 		      <template scope="scope">
 		        <el-button

@@ -31,7 +31,8 @@
 		<result column="TRIGGER_GROUP" property="triggerGroup" jdbcType="VARCHAR" />
 		<result column="CRON_EXPRESSION" property="cronExpression" jdbcType="VARCHAR" />
 		<result column="TIME_ZONE_ID" property="timeZoneId" jdbcType="VARCHAR" />
-		
+		<result column="TRIGGER_STATE" property="triggerState" jdbcType="VARCHAR" />
+
 	</resultMap>	
 	
 	<sql id="Base_Column_List" >
@@ -99,6 +100,7 @@
   	<select id="selectMapList" resultMap="DataResultMap">
   		select 
 	    <include refid="Base_Column_List" />,
+		a.TRIGGER_STATE,
 	    b.TRIGGER_NAME,
 	    b.TRIGGER_GROUP,
 	    b.CRON_EXPRESSION,
