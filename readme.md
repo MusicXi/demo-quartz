@@ -8,6 +8,7 @@
 - 添加定时任务
 ![Alt text](https://github.com/MusicXi/demo-quartz/raw/master/doc/images/task_add.png)
 
+
 #### 特点：
 1. 基于quartz集群,轻量扩展。可快速改造现有项目
 2. 完全动态管理,可自定义任何XxxService.xxx()服务方法为定时任务,简化定时任务开发配置过程
@@ -22,7 +23,7 @@
 - spring.version 4.2.6.RELEASE
 - mybatis.version 3.3.0
 
-#### 当前demo版本 1.1.0:
+#### 当前demo版本 1.1.0 添加功能:
 1. 定时任务添加服务校验,必须存在服务及对应方法
 2. 实现事务不符合校验无法添加任务
 

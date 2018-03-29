@@ -5,9 +5,14 @@ Quartz任务调度的核心元素为：Scheduler——任务调度器、Trigger�
 - **Trigger**是用于定义调度时间的元素，即按照什么时间规则去执行任务。Quartz中主要提供了四种类型的trigger：SimpleTrigger，CronTirgger，DateIntervalTrigger，和NthIncludedDayTrigger。这四种trigger可以满足企业应用中的绝大部分需求
 - **Job**用于表示被调度的任务。主要有两种类型的job：无状态的（stateless）和有状态的（stateful）。对于同一个trigger来说，有状态的job不能被并行执行，只有上一次触发的任务被执行完之后，才能触发下一次执行。一个job可以被多个trigger关联，但是一个trigger只能关联一个job。
 - **Scheduler**代表一个调度容器，由scheduler工厂创建。一个调度容器中可以注册多个JobDetail和Trigger。当Trigger与JobDetail组合，就可以被Scheduler容器调度
+
+![Alt text](https://github.com/MusicXi/demo-quartz/raw/master/doc/images/job_trigger.png)
+
 #### 1.quartz 集群如何工作
 > 一个 Quartz 集群中的每个节点是一个独立的 Quartz 应用，它又管理着其他的节点。也就是你必须对每个节点分别启动或停止。
 Quartz 应用是通过数据库表来感知到另一应用的
+
+![Alt text](https://github.com/MusicXi/demo-quartz/raw/master/doc/images/quartz_cluster.png)
 
 #### 2.quartz集群类型
 - 水平集群：当集群是放置在不同的机器上时，我们称之为水平集群。
