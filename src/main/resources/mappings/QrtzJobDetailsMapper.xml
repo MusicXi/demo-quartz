@@ -119,7 +119,7 @@
 	    	 	and t.JOB_GROUP =#{jobGroup}
 	    	</if>
 	    	<if test="description != null and description !='' ">
-	    	 	and t.DESCRIPTION =#{description}
+	    	 	and t.DESCRIPTION like CONCAT('%','${description}','%')
 	    	</if>
 	    	<if test="jobClassName != null and jobClassName !='' ">
 	    	 	and t.JOB_CLASS_NAME =#{jobClassName}

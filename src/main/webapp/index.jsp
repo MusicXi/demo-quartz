@@ -57,7 +57,8 @@
         <div style="margin-top:15px">
            <el-input placeholder="请输入内容" v-model="criteria" style="padding-bottom:10px;">
 			  <el-select v-model="select" slot="prepend" placeholder="请选择">
-			     <el-option label="jobName" value="3"></el-option>
+			     <el-option label="任务名" value="jobName"></el-option>
+			     <el-option label="任务描述" value="description"></el-option>
 			  </el-select>
 			  <el-button slot="append" icon="search" v-on:click="search"></el-button>
 		  </el-input>  		
@@ -276,8 +277,12 @@
 		    methods: {
 		    	
 		        //从服务器读取数据
-				loadData: function(criteria, pageNum, pageSize){	
-					this.$http.post(this.api.search,{jobName:criteria, pageNum:pageNum, pageSize:pageSize},{emulateJSON: true}).then(function(res){
+				loadData: function(criteria, pageNum, pageSize){
+				    var param = {};
+				    param[this.select] = criteria;
+				    param["pageNum"] = pageNum;
+				    param["pageSize"] = pageSize;
+					this.$http.post(this.api.search,param,{emulateJSON: true}).then(function(res){
                 		this.tableData = res.data.studentdata;
                 		this.totalCount = res.data.number;
                 		this.loading = false;
