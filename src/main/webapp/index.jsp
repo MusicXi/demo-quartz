@@ -24,7 +24,14 @@
 
       .el-table .info-row {
             background: #c9e5f5;
-      }   
+      }
+      .el-table .warning-row {
+          background: oldlace;
+      }
+
+      .el-table .success-row {
+          background: #f0f9eb;
+      }
 
       #top {
           background:#20A0FF;
@@ -38,10 +45,8 @@
 
     
     <div id="top">			
-		<span>	
-	
-				<el-button type="text" @click="handleadd" style="color:white">添加</el-button>	
-				<el-button type="text" @click="deletenames" style="color:white">批量删除</el-button>		
+		<span>
+				<el-button type="text" @click="handleadd" style="color:white">添加</el-button>
 				<el-button type="text" @click="dialogdd" style="color:white">测试对话</el-button>	
 			</span>						
 		</div>	
@@ -330,13 +335,14 @@
 				
 				 //单行删除
 			    handleDelete: function(index, row) {
+                    debugger;
 			        var array = [];
 		        	array.push(row.id);
-					this.$http.post(this.api.delete,{"jobName":row.jobName,"jobGroup":row.jobGroup},{emulateJSON: true}).then(function(res){
+				/*	this.$http.post(this.api.delete,{"jobName":row.jobName,"jobGroup":row.jobGroup},{emulateJSON: true}).then(function(res){
 						this.loadData(this.criteria, this.currentPage, this.pagesize);
 		            },function(){
 		                console.log('failed');
-		            });
+		            });*/
 		        },
 		        
 		        //暂停任务
@@ -364,7 +370,8 @@
 			    
 			    //点击行响应
 			    handleclick: function(row, event, column){
-			    	this.highlightId = row.id;
+                    debugger;
+			    	this.highlightId = row.jobName + "." + row.jobGroup;
 			    },
 					
 			    //编辑
@@ -413,21 +420,23 @@
 		        	var array = [];
 		        	this.multipleSelection.forEach((item) => {
 		        		array.push(item.id);
-			        })
+			        });
 					this.$http.post('../delete',{"array":array},{emulateJSON: true}).then(function(res){
 						this.loadData(this.criteria, this.currentPage, this.pagesize);
 		            },function(){
 		                console.log('failed');
 		            });
 		        },
-		      
-		        //改变当前点击的行的class，高亮当前行
-		        tableRowClassName: function(row, index){
-		    	   if(row.id == this.highlightId)
-		    	   {
-		    		  return 'info-row';
-		    	   }
-		        },
+
+                //改变当前点击的行的class，高亮当前行
+                tableRowClassName: function (row, index) {
+                    debugger;
+                    var index = row.row.jobName + "." + row.row.jobGroup;
+
+                    if (index == this.highlightId) {
+                        return 'info-row';
+                    }
+                },
 		      
 		        //每页显示数据量变更
 		        handleSizeChange: function(val) {
