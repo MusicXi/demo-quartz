@@ -303,10 +303,13 @@
 		            		 "description":this.form.description
 		            		 },{emulateJSON: true})
 		            .then(function(res){
+
 		                var data = res.body;
 		                if (!data.success) {
                             this.$alert(data.msg, '提示');
+                            return;
 						}
+                        this.$alert(data.msg, '提示');
                         this.loadData(this.criteria, this.currentPage, this.pagesize);
                         this.dialogFormVisible = false;
                     },function(){
@@ -335,14 +338,11 @@
 				
 				 //单行删除
 			    handleDelete: function(index, row) {
-                    debugger;
-			        var array = [];
-		        	array.push(row.id);
-				/*	this.$http.post(this.api.delete,{"jobName":row.jobName,"jobGroup":row.jobGroup},{emulateJSON: true}).then(function(res){
+					this.$http.post(this.api.delete,{"jobName":row.jobName,"jobGroup":row.jobGroup},{emulateJSON: true}).then(function(res){
 						this.loadData(this.criteria, this.currentPage, this.pagesize);
 		            },function(){
 		                console.log('failed');
-		            });*/
+		            });
 		        },
 		        
 		        //暂停任务
@@ -370,7 +370,7 @@
 			    
 			    //点击行响应
 			    handleclick: function(row, event, column){
-                    debugger;
+
 			    	this.highlightId = row.jobName + "." + row.jobGroup;
 			    },
 					
@@ -430,12 +430,12 @@
 
                 //改变当前点击的行的class，高亮当前行
                 tableRowClassName: function (row, index) {
-                    debugger;
-                    var index = row.row.jobName + "." + row.row.jobGroup;
+
+           /*         var index = row.row.jobName + "." + row.row.jobGroup;
 
                     if (index == this.highlightId) {
                         return 'info-row';
-                    }
+                    }*/
                 },
 		      
 		        //每页显示数据量变更

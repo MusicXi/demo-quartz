@@ -53,7 +53,8 @@ public class QrtzJobDetailsController {
 		Map<String, Object> map = new HashMap<>();
 
 		map = this.qrtzJobDetailsService.createQrtzJobDetails(qrtzJobDetails);
-		
+		map.put("success", true);
+		map.put("msg", "定时任务添加成功");
 		return map;
 	}
 	
