@@ -8,7 +8,7 @@
 - 添加定时任务
 ![Alt text](https://github.com/MusicXi/demo-quartz/raw/master/doc/images/task_add.png)
 - 编辑定时任务-需改时间
-![Alt text](https://github.com/MusicXi/demo-quartz/raw/master/doc/images/dns_bug.gif)
+![Alt text](https://github.com/MusicXi/demo-quartz/raw/master/doc/images/task_edit.png)
 
 #### 特点：
 1. 基于quartz集群,轻量扩展。可快速改造现有项目
