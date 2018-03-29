@@ -2,6 +2,7 @@
 
 > https://github.com/MusicXi/demo-quartz.git
 ![Alt text](https://github.com/chenyufeng1991/NewsClient/raw/master/Screenshots/2.png)
+![Alt text](https://github.com/MusicXi/demo-quartz/raw/master/doc/images/demo_show.png)
 #### 当前版本 1.1.0:
 1. 定时任务添加服务校验,必须存在服务及对应方法
 2. 实现事务不符合校验无法添加任务
