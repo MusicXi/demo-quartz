@@ -82,26 +82,12 @@
 2. 规则化 :任务名称都使用使用"jobName.xxxService.sssMethod" 来描,xxxService.sssMethod是否可用必须通过系统校验，才能添加任务 
 3. 界面化 :任务创建,修改，删除，暂停，回复通过web管理端来控制。产品人员可自行配制
 
-#### 核心DynamicQuartzJob实现
-通过jobName格式化解析，获取到job执行的信息,通过spring上下文获取目标服务执行方法。从而实现动态执行目的
+#### 核心代码
+DynamicQuartzJob实现,通过jobName格式化解析，获取到job执行的信息,通过spring上下文获取目标服务执行方法。从而实现动态执行目的
 ```
 package com.cnc.cloud.quartz.cluster.job;  
   
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-
-import org.quartz.DisallowConcurrentExecution;
-import org.quartz.JobExecutionContext;
-import org.quartz.JobExecutionException;
-import org.quartz.PersistJobDataAfterExecution;
-import org.quartz.SchedulerException;
-import org.quartz.impl.JobDetailImpl;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.context.ApplicationContext;
-import org.springframework.scheduling.quartz.QuartzJobBean;
-import org.springframework.util.StringUtils;
-
+//import ...省略;
 
 /**
  * 动态定时任务Job
