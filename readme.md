@@ -47,8 +47,8 @@
 - 项目地址:https://github.com/MusicXi/demo-quartz.git 
 
 ### 交流联系
-项目详细设计说明:https://blog.csdn.net/Myron_007/article/details/79856097 请留言,如果博客回复疑问不及时。
-可以加临时群,439019717,把问题说明截图,贴下下去。解决完可以退出。
+项目详细设计说明:https://blog.csdn.net/Myron_007/article/details/79856097 有疑问请留言,如果博客回复不及时，或不好描述。
+加临时群,439019717,把问题说明截图,。解决完可以自行退出。
 
 ### 参考技术资料：
 1. Quartz在Spring中集群  http://sundoctor.iteye.com/blog/486055?page=2
