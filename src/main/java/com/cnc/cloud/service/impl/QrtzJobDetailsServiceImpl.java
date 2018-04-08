@@ -58,27 +58,31 @@ public class QrtzJobDetailsServiceImpl  implements QrtzJobDetailsService {
 		if (qrtzJobDetails == null) {
 			throw new Exception("qrtzJobDetails 为空");
 		}
-		
 		if (StringUtils.isBlank(qrtzJobDetails.getJobName())) {
 			throw new Exception("qrtzJobDetails serviceInfo 为空");
 		}
+
 		// 定时服务有效性校验 (校验是否存在对应的servcie.method )
-		checkServiceAndMethod(qrtzJobDetails.getJobName());
+		this.checkServiceAndMethod(qrtzJobDetails.getJobName());
+
+		// 唯一性校验
 		String jobName = JOB_NAME_PREFIX + qrtzJobDetails.getJobName();
 		String triggerName = TRIGGER_NAME_PREFIX + qrtzJobDetails.getJobName();
 		String jobGroup = StringUtils.isBlank(qrtzJobDetails.getJobGroup())? GROUP_DEFAULT : qrtzJobDetails.getJobGroup();
-		
-		// 唯一性校验
 		JobKey jobKey = JobKey.jobKey(jobName, jobGroup);
 		if (scheduler.checkExists(jobKey)) {
 			throw new DynamicQuartzException(qrtzJobDetails.getJobName() + "服务方法对应定时任务已经存在!");
 		}
+
 		// 构建job信息
 		JobDetail job = JobBuilder.newJob(DynamicQuartzJob.class).withIdentity(jobKey).withDescription(qrtzJobDetails.getDescription()).build();  			
 		TriggerKey triggerKey = TriggerKey.triggerKey(triggerName, jobGroup);
+
         // 构建job的触发规则 cronExpression
 		Trigger trigger = TriggerBuilder.newTrigger().withIdentity(triggerKey).startNow()  
         		.withSchedule(CronScheduleBuilder.cronSchedule(qrtzJobDetails.getCronExpression())).build();
+
+		// 注册job和trigger信息
         scheduler.scheduleJob(job, trigger);  
 		
 //		resultMap.put("success", true);
