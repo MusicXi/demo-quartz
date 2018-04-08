@@ -8,7 +8,7 @@
 - 添加定时任务
 ![Alt text](https://github.com/MusicXi/demo-quartz/raw/master/doc/images/task_add.png)
 
-- 编辑定时任务-需改时间
+- 编辑定时任务-修改定时规则
 ![Alt text](https://github.com/MusicXi/demo-quartz/raw/master/doc/images/task_edit.png)
 
 ### 特点：
@@ -388,8 +388,8 @@ public class QrtzJobDetailsServiceImpl  implements QrtzJobDetailsService {
 项目地址:https://github.com/MusicXi/demo-quartz.git 
 
 ### 交流联系
-项目详细设计说明:http://blog.csdn.net/myron_007/article/details/54927529 博客回复疑问不及时。如果有问题可以加临时群,439019717,把问题说明截图,贴下下去。解决完可以退出。
-
+项目详细设计说明:https://blog.csdn.net/Myron_007/article/details/79856097 博客回复疑问不及时。
+如果有问题可以加临时群,439019717,把问题说明截图,贴下下去。解决完可以退出。
 ### 参考技术资料：
 1. Quartz在Spring中集群  http://sundoctor.iteye.com/blog/486055?page=2
 2. Spring Boot集成持久化Quartz定时任务管理和界面展示 http://blog.csdn.net/u012907049/article/details/73801122
