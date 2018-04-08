@@ -251,7 +251,7 @@ public class QrtzJobDetailsServiceImpl  implements QrtzJobDetailsService {
 	@Autowired
 	private Scheduler scheduler; 
 	
-@Override
+    @Override
 	public Map<String, Object> createQrtzJobDetails(QrtzJobDetails qrtzJobDetails) throws Exception{
 		Map<String, Object> resultMap = new HashMap<>();
 		
@@ -285,10 +285,6 @@ public class QrtzJobDetailsServiceImpl  implements QrtzJobDetailsService {
 
 		// 注册job和trigger信息
         scheduler.scheduleJob(job, trigger);  
-		
-//		resultMap.put("success", true);
-//		resultMap.put("msg", "创建QrtzJobDetails 成功!");
-//		LOGGER.info("创建QrtzJobDetails 成功 " + qrtzJobDetails.toString());
 		return resultMap;
 	}
 	
