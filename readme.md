@@ -1,6 +1,6 @@
 # 基于quartz集群分布式动态定时任务管理 
 
-> https://github.com/MusicXi/demo-quartz.git
+> https://github.com/MusicXi/demo-quartz.git 指定任一服务方法创建定时任务，“0”开发
 
 - 不多说，先看效果
 ![Alt text](https://github.com/MusicXi/demo-quartz/raw/master/doc/images/demo_show.png)
@@ -38,7 +38,49 @@
 - simpleService.testMethod1   */15 * * * * ?
 - simpleService.testMethod2   */35 * * * * ?
 
+#### 实现原理(画重点)
+##### 1. 分析问题:传统定时任务写法有什么问题?
+```
+<!-- <bean id="jobDetail1"
+		class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
+		<property name="jobClass">
+			<value>com.cnc.cloud.quartz.cluster.example.MyQuartzJobBean1</value>
+		</property>
+		<property name="durability" value="true" />
+		<property name="requestsRecovery" value="true" />
+	</bean>
+	<bean id="trigger1"
+		class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail" ref="jobDetail1" />
+		<property name="cronExpression" value="*/5 * * * * ?" />
+	</bean>
 
+	<bean id="jobDetail2"
+		class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
+		<property name="jobClass">
+			<value>com.cnc.cloud.quartz.cluster.example.MyQuartzJobBean2</value>
+		</property>
+		<property name="durability" value="true" />
+		<property name="requestsRecovery" value="true" />
+	</bean>
+	<bean id="trigger2"
+		class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail" ref="jobDetail2" />
+		<property name="cronExpression" value="*/10 * * * * ?" />
+	</bean> -->
+```
+要实现一个定时任务，一般要定义一个job来包装一个定时任务内容，同时定义至少一个trigger来描述该任务触发规则。而job中执行内容一般
+是某个业务bean的方法(比如service服务中的方法)。这个写法没问题,但是还是有很多不足的地方:
+
+1. 既然具体区分定时任务执行内容本质上是xxxJob中xxxBean.method。那么为每个任务包装一个xxxJob是否太多余，开发太麻烦？
+2. job的名称或者Id缺乏意义化("jobDetail2"简直反人类)，很难通过配置就看出"MyQuartzJobBean"里面执行的业务含义？基于开发人员编码习惯是否良好，如何强制规范？
+3. 如何在线上环境修改静态定时任务配置，让产品人员自己去定时任务的起停及执行周期? 少麻烦开发?
+
+下面从三个方面解决
+#####  2. 解决问题三板斧
+1. 抽象化 :既然决定定时任务内容不是job本身决定，所有定时任务的job都抽象化为DynamicQuartzJob(动态定时任务类)
+2. 规则化 :任务名称都使用使用"jobName.xxxService.sssMethod" 来描,xxxService.sssMethod是否可用必须通过系统校验，才能添加任务 
+3. 界面化 :任务创建,修改，删除，暂停，回复通过web管理端来控制。产品人员可自行配制
 
 #### 1.quartz 集群如何工作
 > 一个 Quartz 集群中的每个节点是一个独立的 Quartz 应用，它又管理着其他的节点。也就是你必须对每个节点分别启动或停止。
