@@ -1,6 +1,6 @@
 # 基于quartz集群分布式动态定时任务管理 
 
-> https://github.com/MusicXi/demo-quartz.git 指定任一服务方法创建定时任务，“0”开发
+> 指定任一服务方法创建定时任务，“0”开发
 
 - 不多说，先看效果
 ![Alt text](https://github.com/MusicXi/demo-quartz/raw/master/doc/images/demo_show.png)
@@ -30,14 +30,18 @@
 1. 定时任务添加服务校验,必须存在服务及对应方法
 2. 事务支持 不符合校验无法添加任务
 
+### 后续版本规划增加功能
+1. 自动记录定时任务执行的日志,方便运维
+2. 注解形式描述系统所有可用作为定时任务的服务方法,操作界面下拉可选
+
 ### 快速启动
 1. 在quartz连接的数据库执行sql文件的 分布式定时任务初始化建表.sql的内容。
 2. 访问http://localhost:8082/ (端口号自己定义)
-3. 添加服务方法及定时周期 测试，启/停/修改定时任务(也可以添加任意自己开发服务，动态生成定时任务)
+3. 接口文档访问地址:http://localhost:8082/swagger-ui.html
+4. 添加服务方法及定时周期 测试，启/停/修改定时任务(也可以添加任意自己开发服务，动态生成定时任务)
 - helloSerice.sayHello    */5 * * * * ?
 - simpleService.testMethod1   */15 * * * * ?
 - simpleService.testMethod2   */35 * * * * ?
-
 ### 实现原理(画重点)
 #### 1. 分析问题:传统定时任务写法有什么问题?
 ```xml
@@ -381,9 +385,7 @@ public class QrtzJobDetailsServiceImpl  implements QrtzJobDetailsService {
 }
 
 ```
-### 后续版本规划增加功能
-1. 自动记录定时任务执行的日志,方便运维
-2. 注解形式描述系统所有可用作为定时任务的服务方法,操作界面下拉可选
+项目地址:https://github.com/MusicXi/demo-quartz.git 
 
 ### 交流联系
 项目详细设计说明:http://blog.csdn.net/myron_007/article/details/54927529 博客回复疑问不及时。如果有问题可以加临时群,439019717,把问题说明截图,贴下下去。解决完可以退出。
