@@ -1,6 +1,6 @@
 # 基于quartz集群分布式动态定时任务管理 
 
-> 指定任一服务方法创建定时任务，“0”开发
+> 真正动态，定时任务“0”开发，基于quartz集群超轻量级扩展实现。
 
 - 不多说，先看效果
 ![Alt text](https://github.com/MusicXi/demo-quartz/raw/master/doc/images/demo_show.png)
