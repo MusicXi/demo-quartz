@@ -3,13 +3,13 @@
 > 真正动态，定时任务“0”开发，基于quartz集群超轻量级扩展实现。
 
 - 不多说，先看效果
-![图片出不来 直接看 https://github.com/MusicXi/demo-quartz.git](https://github.com/MusicXi/demo-quartz/raw/master/doc/images/demo_show.png)
+![Alt text](https://github.com/MusicXi/demo-quartz/raw/master/doc/images/demo_show.png)
 
 - 添加定时任务
-![图片出不来 直接看 https://github.com/MusicXi/demo-quartz.git](https://github.com/MusicXi/demo-quartz/raw/master/doc/images/task_add.png)
+![Alt text](https://github.com/MusicXi/demo-quartz/raw/master/doc/images/task_add.png)
 
 - 编辑定时任务-修改定时规则
-![图片出不来 直接看 https://github.com/MusicXi/demo-quartz.git](https://github.com/MusicXi/demo-quartz/raw/master/doc/images/task_edit.png)
+![Alt text](https://github.com/MusicXi/demo-quartz/raw/master/doc/images/task_edit.png)
 
 ### 特点：
 1. 基于quartz集群,轻量扩展。可快速改造现有项目
