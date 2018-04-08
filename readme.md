@@ -83,7 +83,7 @@
 3. 界面化 :任务创建,修改，删除，暂停，回复通过web管理端来控制。产品人员可自行配制
 
 #### 3. 核心代码说明
-#DynamicQuartzJob#
+**DynamicQuartzJob**
 ```
 package com.cnc.cloud.quartz.cluster.job;  
   
