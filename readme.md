@@ -40,8 +40,8 @@
 
 ### 实现原理(画重点)
 #### 1. 分析问题:传统定时任务写法有什么问题?
-```
-<!-- <bean id="jobDetail1"
+```xml
+    <bean id="jobDetail1"
 		class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
 		<property name="jobClass">
 			<value>com.cnc.cloud.quartz.cluster.example.MyQuartzJobBean1</value>
@@ -67,7 +67,7 @@
 		class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
 		<property name="jobDetail" ref="jobDetail2" />
 		<property name="cronExpression" value="*/10 * * * * ?" />
-	</bean> -->
+	</bean> 
 ```
 要实现一个定时任务，一般要定义一个job来包装一个定时任务内容，同时定义至少一个trigger来描述该任务触发规则。而job中执行内容一般
 是某个业务bean的方法(比如service服务中的方法)。这个写法没问题,但是还是有很多不足的地方:
