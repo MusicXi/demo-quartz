@@ -84,7 +84,7 @@
 
 #### 3. 核心代码说明
 **DynamicQuartzJob**
-```
+```java
 package com.cnc.cloud.quartz.cluster.job;  
   
 //import 省略...;
@@ -143,7 +143,7 @@ public class DynamicQuartzJob extends QuartzJobBean {
 ```
 **QrtzJobDetailsController**
 web 管理端接口
-```
+```java
 package  com.cnc.cloud.controller;
 
 // import 省略...;
@@ -232,7 +232,6 @@ package com.cnc.cloud.service.impl;
 
 //import 省略...;
 
-
 @Service("qrtzJobDetailsService")
 @Transactional(rollbackFor=Exception.class)
 public class QrtzJobDetailsServiceImpl  implements QrtzJobDetailsService {
@@ -282,10 +281,6 @@ public class QrtzJobDetailsServiceImpl  implements QrtzJobDetailsService {
 		Trigger trigger = TriggerBuilder.newTrigger().withIdentity(triggerKey).startNow()  
         		.withSchedule(CronScheduleBuilder.cronSchedule(qrtzJobDetails.getCronExpression())).build();
         scheduler.scheduleJob(job, trigger);  
-		
-//		resultMap.put("success", true);
-//		resultMap.put("msg", "创建QrtzJobDetails 成功!");
-//		LOGGER.info("创建QrtzJobDetails 成功 " + qrtzJobDetails.toString());
 		return resultMap;
 	}
 	
@@ -318,13 +313,6 @@ public class QrtzJobDetailsServiceImpl  implements QrtzJobDetailsService {
 		return resultMap;
 	}
 	
-	@Override
-	public Map<String, Object> updateQrtzJobDetails(List<QrtzJobDetails> qrtzJobDetailsList) throws Exception{
-		Map<String, Object> resultMap = new HashMap<>();
-
-		return resultMap;
-	}
-
 
 	@Override
 	public Map<String, Object> deleteQrtzJobDetails(QrtzJobDetails qrtzJobDetails) throws Exception {
@@ -335,18 +323,6 @@ public class QrtzJobDetailsServiceImpl  implements QrtzJobDetailsService {
 		return resultMap;
 	}
 	
-	@Override
-	public Map<String, Object> deleteQrtzJobDetails(List<QrtzJobDetails> qrtzJobDetailsList) throws Exception{
-		Map<String, Object> resultMap = new HashMap<>();
-
-		return resultMap;
-	}
-	
-	@Override
-	public QrtzJobDetails findQrtzJobDetailsByPrimaryKey(String id) {
-		return this.qrtzJobDetailsDao.selectByPrimaryKey(id);
-	}
-
 	@Override
 	public Page<Map<String, Object>> findMapListByPage(QrtzJobDetails qrtzJobDetails, Page<Map<String, Object>> page) {
 		page = PageHelper.startPage(page.getPageNum(), page.getPageSize());
@@ -360,16 +336,6 @@ public class QrtzJobDetailsServiceImpl  implements QrtzJobDetailsService {
 		this.qrtzJobDetailsDao.selectList(qrtzJobDetails);
 		return page;
 
-	}
-
-	@Override
-	public List<Map<String, Object>> findMapList(QrtzJobDetails qrtzJobDetails) {
-		return this.qrtzJobDetailsDao.selectMapList(qrtzJobDetails);
-	}
-	
-	@Override
-	public List<QrtzJobDetails> findList(QrtzJobDetails qrtzJobDetails){
-		return this.qrtzJobDetailsDao.selectList(qrtzJobDetails);
 	}
 
 	@Override
@@ -405,12 +371,8 @@ public class QrtzJobDetailsServiceImpl  implements QrtzJobDetailsService {
 			throw new DynamicQuartzException("服务方法不存在");
 		}
 		
-
 	}
 	
-
-
-
 
 }
 
