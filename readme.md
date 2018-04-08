@@ -141,6 +141,91 @@ public class DynamicQuartzJob extends QuartzJobBean {
   
 }  
 ```
+**QrtzJobDetailsController**
+web 管理端接口
+```
+package  com.cnc.cloud.controller;
+
+// import ...;
+
+
+//@CrossOrigin(origins={"http://localhost:8080"}, methods={RequestMethod.GET, RequestMethod.POST})
+@CrossOrigin(origins={"*"}, methods={RequestMethod.GET, RequestMethod.POST})
+@Api(value = "/qrtzJobDetails", tags = "定时任务操作接口")
+@Controller
+@RequestMapping("/qrtzJobDetails")
+public class QrtzJobDetailsController {
+	//private static final Logger logger = LoggerFactory.getLogger(QrtzJobDetailsController.class);
+	
+	@Autowired
+	private QrtzJobDetailsService qrtzJobDetailsService;
+	
+
+	@ApiOperation(value = "查询定时任务", notes = "根据id获取用户信息", httpMethod = "POST", response = QrtzJobDetails.class)
+	@RequestMapping("/listByPage")
+	@ResponseBody
+	public  Map<String, Object> listByPage(String filter, QrtzJobDetails qrtzJobDetails, Page<Map<String, Object>> page, HttpServletRequest request) {
+		Map<String, Object> map = new HashMap<>();
+		//设置默认排序属性
+		//page.setDefaultSort("createTime", "desc");
+		page = this.qrtzJobDetailsService.findMapListByPage(qrtzJobDetails, page);
+		map.put("studentdata", page);
+	    map.put("number", page.getTotal());
+		return map;
+	}
+	
+	@ApiOperation(value = "添加定时任务", notes = "动态添加定时任务", httpMethod = "POST", response = QrtzJobDetails.class)
+	@RequestMapping("/add")
+	@ResponseBody
+	public Map<String, Object> addQrtzJobDetails(QrtzJobDetails qrtzJobDetails, HttpServletRequest request) throws Exception {
+		Map<String, Object> map = new HashMap<>();
+
+		map = this.qrtzJobDetailsService.createQrtzJobDetails(qrtzJobDetails);
+		map.put("success", true);
+		map.put("msg", "定时任务添加成功");
+		return map;
+	}
+	
+	@ApiOperation(value = "修改定时任务", notes = "动态修改定时任务", httpMethod = "POST", response = QrtzJobDetails.class)
+	@RequestMapping("/edit")
+	@ResponseBody
+	public Map<String, Object> updateQrtzJobDetails(QrtzJobDetails qrtzJobDetails, HttpServletRequest request) throws Exception {
+		Map<String, Object> map = new HashMap<>();
+		map = this.qrtzJobDetailsService.updateQrtzJobDetails(qrtzJobDetails);
+		return map;
+	}
+	
+	@ApiOperation(value = "删除定时任务", notes = "动态删除定时任务,先暂停再删除", httpMethod = "POST", response = QrtzJobDetails.class)
+	@RequestMapping("/delete")
+	@ResponseBody
+	public Map<String, Object> deleteQrtzJobDetails(QrtzJobDetails qrtzJobDetails, HttpServletRequest request) throws Exception{
+		Map<String, Object> map = new HashMap<>();
+		map = this.qrtzJobDetailsService.deleteQrtzJobDetails(qrtzJobDetails);
+		return map;
+	}
+	
+	@ApiOperation(value = "暂停定时任务", notes = "暂停定时任务", httpMethod = "POST", response = QrtzJobDetails.class)
+	@RequestMapping("/pause")
+	@ResponseBody
+	public Map<String, Object> pauseJob(QrtzJobDetails qrtzJobDetails, HttpServletRequest request) throws Exception{
+		Map<String, Object> map = new HashMap<>();
+		map = this.qrtzJobDetailsService.pauseJob(qrtzJobDetails);
+		return map;
+	}
+	
+	@ApiOperation(value = "恢复定时任务", notes = "恢复暂停的定时任务", httpMethod = "POST", response = QrtzJobDetails.class)
+	@RequestMapping("/resume")
+	@ResponseBody
+	public Map<String, Object> resumeJob(QrtzJobDetails qrtzJobDetails, HttpServletRequest request) throws Exception{
+		Map<String, Object> map = new HashMap<>();
+		map = this.qrtzJobDetailsService.resumeJob(qrtzJobDetails);
+		return map;
+	}
+	
+}
+
+```
+
 
 ### 1.quartz 集群如何工作
 > 一个 Quartz 集群中的每个节点是一个独立的 Quartz 应用，它又管理着其他的节点。也就是你必须对每个节点分别启动或停止。
