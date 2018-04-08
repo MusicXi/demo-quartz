@@ -77,13 +77,13 @@
 3. 如何在线上环境修改静态定时任务配置，让产品人员自己去定时任务的起停及执行周期? 少麻烦开发?
 
 下面从三个方面解决
-####  2. 解决问题三板斧
+#### 2. 解决问题三板斧
 1. 抽象化 :既然决定定时任务内容不是job本身决定，所有定时任务的job都抽象化为DynamicQuartzJob(动态定时任务类)
 2. 规则化 :任务名称都使用使用"jobName.xxxService.sssMethod" 来描,xxxService.sssMethod是否可用必须通过系统校验，才能添加任务 
 3. 界面化 :任务创建,修改，删除，暂停，回复通过web管理端来控制。产品人员可自行配制
 
-#### 核心代码
-DynamicQuartzJob实现,通过jobName格式化解析，获取到job执行的信息,通过spring上下文获取目标服务执行方法。从而实现动态执行目的
+#### 3. 核心代码说明
+#DynamicQuartzJob#
 ```
 package com.cnc.cloud.quartz.cluster.job;  
   
@@ -91,6 +91,7 @@ package com.cnc.cloud.quartz.cluster.job;
 
 /**
  * 动态定时任务Job
+ * 通过jobName格式化解析，获取到job执行的信息,通过spring上下文获取目标服务执行方法。从而实现动态执行目的
  * @author linrx1
  *
  */
