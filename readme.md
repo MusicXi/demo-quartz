@@ -56,3 +56,6 @@
 3. Spring+SpringMVC+mybatis+Quartz整合  http://blog.csdn.net/u012907049/article/details/70273080
 4. Vue.js 学习地址:https://cn.vuejs.org/v2/guide/
 5. vue-element-admin   https://github.com/PanJiaChen/vue-element-admin/blob/master/README.zh-CN.md
+
+6. Quartz集群原理及配置应用，实例使用 https://blog.csdn.net/zhen340417593/article/details/53436819
+7. Quartz任务调度的基本实现原理 https://www.cnblogs.com/zhenyuyaodidiao/p/4755649.html
