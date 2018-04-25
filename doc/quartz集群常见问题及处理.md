@@ -4,3 +4,7 @@
 ```
 dddd
 ```
+
+
+### 参考文档
+- 《java-net-socketexception-broken-pipe-with-quartz》 https://stackoverflow.com/questions/9159372/java-net-socketexception-broken-pipe-with-quartz-and-mysql-and-tomcat-tomcat-c
