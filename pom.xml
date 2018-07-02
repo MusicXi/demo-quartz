@@ -23,6 +23,7 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<jdk.version>1.7</jdk.version>
+		<tomcat_home>/usr/soft/tomcat</tomcat_home>
 		<!-- log4j libs-->
 		<log4j.version>1.2.16</log4j.version>
 		<slf4j-api.version>1.7.7</slf4j-api.version>
@@ -55,7 +56,9 @@
 		<quartz.version>2.2.1</quartz.version>
 		<springfox-swagger.version>2.7.0</springfox-swagger.version>
 		<commons-lang3.version>3.3.2</commons-lang3.version>
-		
+
+		<!--httpclient-->
+		<httpclient.version>4.4.1</httpclient.version>
 	
 	</properties>
 
@@ -82,6 +85,52 @@
 					<server>tomcat7</server>
 				</configuration>
 			</plugin>
+
+			<!-- 打包RPM包 mvn package -Dmaven.test.skip=true
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>rpm-maven-plugin</artifactId>
+				<version>2.1.5</version>
+				<extensions>true</extensions>
+				<executions>
+					<execution>
+						<goals>
+							<goal>rpm</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<prefix>${tomcat_home}</prefix>
+					<copyright>2018, wwww.quansucloud.com</copyright>
+					<distribution>quangsucloud</distribution>
+					<group>quangsucloud.com</group>
+					<packager>hello</packager>
+					<version>${project.version}</version>
+					<autoRequires>true</autoRequires>
+					<release>3</release>
+					<requires>
+						<require>java-1.7.0 >= 1.7</require>
+					</requires>
+					<mappings>
+						<mapping>
+							<directory>${tomcat_home}/webapps/${project.artifactId}</directory>
+							<filemode>755</filemode>
+							<username>root</username>
+							<groupname>root</groupname>
+							<sources>
+								<source>
+									<location>target/${project.artifactId}-${project.version}</location>
+								</source>
+							</sources>
+						</mapping>
+					</mappings>
+					<postinstallScriptlet>
+						<script>echo "install success!"</script>
+					</postinstallScriptlet>
+				</configuration>
+			</plugin>
+-->
+
 		</plugins>
 	</build>
 
@@ -305,6 +354,12 @@
 		    <version>2.9.0</version>
 		</dependency>
 		-->
+
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+			<version>${httpclient.version}</version>
+		</dependency>
 
 	</dependencies>
 </project>
