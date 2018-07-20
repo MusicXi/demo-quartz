@@ -59,3 +59,4 @@
 
 6. Quartz集群原理及配置应用，实例使用 https://blog.csdn.net/zhen340417593/article/details/53436819
 7. Quartz任务调度的基本实现原理 https://www.cnblogs.com/zhenyuyaodidiao/p/4755649.html
+8. 《Quartz学习——Quartz大致介绍（一）》 https://blog.csdn.net/u010648555/article/details/54863144
