@@ -57,7 +57,8 @@ public class DynamicQuartzJob extends QuartzJobBean {
     }  
   
     private ApplicationContext getApplicationContext(final JobExecutionContext jobexecutioncontext) {  
-        try {  
+        try {
+        	//applicationContextKey 在SchedulerFactoryBean中配置
             return (ApplicationContext) jobexecutioncontext.getScheduler().getContext().get("applicationContextKey");  
         } catch (SchedulerException e) {  
             logger.error("jobexecutioncontext.getScheduler().getContext() error!", e);  
