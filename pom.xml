@@ -101,9 +101,9 @@
 				</executions>
 				<configuration>
 					<prefix>${tomcat_home}</prefix>
-					<copyright>2018, wwww.quansucloud.com</copyright>
-					<distribution>quangsucloud</distribution>
-					<group>quangsucloud.com</group>
+					<copyright>2018, wwww.myron.com</copyright>
+					<distribution>myron</distribution>
+					<group>myron.com</group>
 					<packager>hello</packager>
 					<version>${project.version}</version>
 					<autoRequires>true</autoRequires>
