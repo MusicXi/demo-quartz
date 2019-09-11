@@ -3,13 +3,13 @@
 > 真正动态，定时任务“0”开发，基于quartz集群超轻量级扩展实现。
 
 - 不多说，先看效果
-![Alt text](https://github.com/MusicXi/demo-quartz/raw/master/doc/images/demo_show.png)
+![Alt text](doc/images/demo_show.png)
 
 - 添加定时任务
-![Alt text](https://github.com/MusicXi/demo-quartz/raw/master/doc/images/task_add.png)
+![Alt text](doc/images/task_add.png)
 
 - 编辑定时任务-修改定时规则
-![Alt text](https://github.com/MusicXi/demo-quartz/raw/master/doc/images/task_edit.png)
+![Alt text](doc/images/task_edit.png)
 
 ### 特点：
 1. 基于quartz集群,轻量扩展。可快速改造现有项目
@@ -39,7 +39,7 @@
 2. 访问http://localhost:8082/ (端口号自己定义)
 3. 接口文档访问地址:http://localhost:8082/swagger-ui.html
 4. 添加服务方法及定时周期 测试，启/停/修改定时任务(也可以添加任意自己开发服务，动态生成定时任务)
-- helloSerice.sayHello    */5 * * * * ?
+- helloService.sayHello    */5 * * * * ?
 - simpleService.testMethod1   */15 * * * * ?
 - simpleService.testMethod2   */35 * * * * ?
 ### 实现原理(画重点)
