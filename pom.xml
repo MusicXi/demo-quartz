@@ -30,7 +30,7 @@
 		<slf4j-log4j12.version>1.7.7</slf4j-log4j12.version>
 		
 		<!-- test libs -->
-		<junit.version>4.11</junit.version>
+		<junit.version>4.13.1</junit.version>
 		<!-- json -->
 		<jackson.version>2.2.3</jackson.version>
 		<!-- web libs -->
