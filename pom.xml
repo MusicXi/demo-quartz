@@ -39,7 +39,7 @@
 		<jsp-api.version>2.1</jsp-api.version>
 		
 		<!-- spring -->
-		<spring.version>4.2.6.RELEASE</spring.version>
+		<spring.version>5.2.22.RELEASE</spring.version>
 		<aspectjweaver.version>1.8.5</aspectjweaver.version>
 		
 		<!-- orm -->
