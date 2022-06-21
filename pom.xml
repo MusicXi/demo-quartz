@@ -50,7 +50,7 @@
 		<pagehelper.version>5.0.0</pagehelper.version>
 		
 		<!-- jdbc -->
-		<mysql.version>5.1.36</mysql.version>
+		<mysql.version>8.0.28</mysql.version>
 		
 		<!-- quartz -->
 		<quartz.version>2.2.1</quartz.version>
